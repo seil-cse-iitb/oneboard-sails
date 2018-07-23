@@ -27,6 +27,13 @@ module.exports = {
       maxLength: 200,
       example: 'Fan 1 in room 201'
     },
+    type: {
+      type: 'string',
+      description:'The category of equipment',
+      required: true,
+      maxLength: 200,
+      example: 'fan'
+    },
     location: {
       type: 'string',
       description:'The full path heirarchy for the location of the equipment',
@@ -34,7 +41,7 @@ module.exports = {
       maxLength: 255,
       example: '/kresit/C/201'
     },
-    properties_json:{
+    properties:{
       type: 'json',
       description:'A JSON describing UI meta data for this objects',
     }
