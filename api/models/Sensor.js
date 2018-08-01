@@ -33,7 +33,14 @@ module.exports = {
       maxLength: 255,
       example: '/kresit/C/201'
     },
-    properties_json:{
+    type: {
+      type: 'string',
+      description:'The category of sensor',
+      required: true,
+      maxLength: 200,
+      example: 'dht'
+    },
+    properties:{
       type: 'json',
       description:'A JSON describing UI meta data for this objects',
     }
