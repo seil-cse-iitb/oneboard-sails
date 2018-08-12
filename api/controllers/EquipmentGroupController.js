@@ -1,10 +1,12 @@
 /**
- * EquipmentController
+ * EquipmentGroupController
  *
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
+
 /*global Equipment*/
+/*global EquipmentGroup*/
 /*eslint no-undef: "error"*/
 var mqtt = require('mqtt');
 var fs = require('fs');
@@ -16,10 +18,6 @@ module.exports = {
   actuate: async function(req, res){
     let equipment;
     equipment = await Equipment.findOne({id:req.params.id});
-    if(!equipment){
-      equipment = await EquipmentGroup.findOne({id:req.params.id});
-
-    }
     let properties_file_path = sails.config.location_root + equipment.location + 'properties.json';
     // Look for the passed in path on the filesystem
     if (await fileExists(properties_file_path)){
@@ -33,7 +31,7 @@ module.exports = {
       client.on('connect', function () {
         console.log(mqtt_topic);
         console.log(mqtt_msg);
-        client.publish(mqtt_topic, mqtt_msg);
+        // client.publish(mqtt_topic, mqtt_msg);
         client.end();
         res.json({"message":"Message sent successfully"});
         // store the new state info into database
@@ -50,4 +48,5 @@ module.exports = {
   }
 
 };
+
 

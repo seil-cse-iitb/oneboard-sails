@@ -53,6 +53,7 @@ module.exports.routes = {
   'POST  /equipment/actuate/:id':                        'EquipmentController.actuate',
   '/sensor/subscribe':                        'SensorController.subscribe',
   'GET  /sensor/test':                        'SensorController.test',
+  'GET  /alert/generate':                        'AlertController.generate',
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
   //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
