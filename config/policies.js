@@ -19,6 +19,7 @@ module.exports.policies = {
   'deliver-contact-form-message': true,
   'sensor/*':true,
   'equipment/*':true,
+  'equipmentGroup/*':true,
   'location/*':true,
   'alert/*':true
 

@@ -9,7 +9,7 @@ module.exports = {
     var message_params = message.toString().split(",");
     var sensors = {};
     switch (topic_params[2]) {
-      case "temp":
+      case "temp":{
         //data/+/temp/#
         //Construct sensor_id = temp_k_<room>_<lane>_<zone>
 
@@ -27,7 +27,29 @@ module.exports = {
           sensors[sensor_id] = sensor; //insert newly discovered sensor into our local json
         }
         sails.sockets.broadcast(sensors[sensor_id].location, 'sensor_data', { 'serial':sensors[sensor_id].serial, 'temperature': Number(message_params[4]) }); //broadcast the data received from this sensor to front end using socket
+        break;
+      }
+      case "dht":{
+        //data/+/dht/#
+        //Construct sensor_id = temp_k_<location>_<id>
 
+        var sensor_id = 'temp_k_' + topic_params[3].toLowerCase() + message_params[1];
+
+        if (typeof sensors[sensor_id] == 'undefined') {
+          //this sensor is not present in our in-memory list of sensor. Need to lookup database and add it
+          var sensor = await Sensor.findOne({ serial: sensor_id });
+
+          if (!sensor) {
+            //sensor not found in bms database. Ignore and carry on
+            // console.log(sensor_id + ' not found');
+            return;
+          }
+          sensors[sensor_id] = sensor; //insert newly discovered sensor into our local json
+        }
+        console.log({ 'serial':sensors[sensor_id].serial, 'temperature': Number(message_params[2]) })
+        sails.sockets.broadcast(sensors[sensor_id].location, 'sensor_data', { 'serial':sensors[sensor_id].serial, 'temperature': Number(message_params[2]) }); //broadcast the data received from this sensor to front end using socket
+        break;
+      }
     }
   },
 

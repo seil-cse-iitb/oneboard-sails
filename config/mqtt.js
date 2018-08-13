@@ -20,7 +20,8 @@ module.exports.mqtt = {
 		qos:0
 	},
 	topics : [
-		"data/+/temp/#"
+		"data/+/temp/#",
+		"data/+/dht/#"
 	],
 	handler : require('../mqtt/handler.js')
 }

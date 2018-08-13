@@ -51,6 +51,7 @@ module.exports.routes = {
   'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
   'GET   /location':                                     { action: 'location/index' },
   'POST  /equipment/actuate/:id':                        'EquipmentController.actuate',
+  'POST  /equipmentGroup/actuate/:id':                        'EquipmentGroupController.actuate',
   '/sensor/subscribe':                        'SensorController.subscribe',
   'GET  /sensor/test':                        'SensorController.test',
   'GET  /alert/generate':                        'AlertController.generate',
