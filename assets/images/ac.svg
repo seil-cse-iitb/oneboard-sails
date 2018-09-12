@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="150"
+   height="150"
+   viewBox="0 0 150 150"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="ac.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="57.503541"
+     inkscape:cy="8.830235"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1360"
+     inkscape:window-height="719"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-17.673317,-840.1758)">
+    <g
+       id="g835"
+       transform="translate(4.4433591e-8,-54.611653)">
+      <rect
+         ry="6.1663404"
+         y="949.39911"
+         x="17.673317"
+         height="40.776688"
+         width="150"
+         id="rect4138"
+         style="opacity:1;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.67961168" />
+      <g
+         transform="matrix(0.78284383,0,0,0.55240146,-7.9780328,449.92926)"
+         id="g4196">
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 44.642857,918.93678 168.571433,0"
+           id="path4140"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 43.92857,913.65266 168.57143,0"
+           id="path4140-5"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 43.928571,924.22089 168.571429,0"
+           id="path4140-3"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#000000;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 43.92857,929.50501 168.57143,0"
+           id="path4140-56"
+           inkscape:connector-curvature="0" />
+      </g>
+      <rect
+         ry="1.4436196"
+         y="983.53796"
+         x="29.081087"
+         height="2.8872392"
+         width="126.21358"
+         id="rect4202"
+         style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.67961168" />
+      <rect
+         ry="1.6990291"
+         y="976.63208"
+         x="17.67341"
+         height="3.3980582"
+         width="149.99982"
+         id="rect4202-2"
+         style="opacity:1;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.67961168" />
+      <rect
+         rx="0"
+         ry="2.5030341"
+         y="966.14667"
+         x="65.488861"
+         height="7.2815542"
+         width="54.368935"
+         id="rect4238"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.67961168" />
+      <rect
+         rx="0"
+         ry="1.752124"
+         y="967.23895"
+         x="70.828667"
+         height="5.0970874"
+         width="43.689323"
+         id="indicator"
+         style="opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.67961168" />
+    </g>
+  </g>
+</svg>

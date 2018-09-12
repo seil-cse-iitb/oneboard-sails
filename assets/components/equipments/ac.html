@@ -1,0 +1,11 @@
+<md-card>
+    <md-card-header>
+        <md-card-header-text>
+        <md-switch ng-model="$ctrl.ac.properties.state" aria-label="Switch" ng-click="switch($ctrl.ac)">{{$ctrl.ac.name}}</md-switch>
+        </md-card-header-text>
+    </md-card-header>
+    <div ng-include="'images/ac.svg'" layout layout-align="center start" class="ac" ng-class="{'on':$ctrl.ac.properties.state, 'vertical':$ctrl.ac.properties.orientation=='vertical'}"></div>
+    <!-- <md-card-actions layout="column" layout-align="start">
+    </md-card-actions> -->
+
+</md-card>

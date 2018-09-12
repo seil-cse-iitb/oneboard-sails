@@ -1,0 +1,4 @@
+io.sails.url = 'https://api.mysite.com';
+var CONFIG={
+    "BACKEND_HOST":"http://localhost:1337/"
+}

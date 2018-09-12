@@ -1,0 +1,62 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+.vertical{
+  transform: rotate(90deg);
+}
+@keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+fan .on #fan{
+  transform-origin: 50% 60%;
+  transform: translate(0, -27.4112);
+	animation: rotate 1s linear infinite ;
+}
+light .on #tube1, light .on #tube2, light-array .on #tube1, light-array .on #tube2 {
+	fill:#ffffff !important;
+}
+fan > md-card, light > md-card {
+  /* max-width:200px; */
+  max-height:550px;
+}
+ac .on #indicator{
+  fill: rgb(76,175,80) !important;
+}
+temperature .sensor{
+  position: absolute;
+  color:black;
+}
+temperature .sensor small{
+  color:white;
+}
+.controls-table td{
+  position: relative;
+}
+
+table md-card .md-actions, table md-card md-card-actions{
+  margin:0px;
+  margin-left:8px;
+}
+md-card md-switch{
+  margin:1px;
+}
+.md-button.child{
+  position: absolute;
+  font-size:20px;
+  min-width:100px;
+  min-height:60px;
+  top:50px;
+}
+.indicator{
+  width:50px;
+  height:50px;
+}
+.alert .md-list-item-text p{
+  color:black;
+}

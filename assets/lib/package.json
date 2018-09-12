@@ -1,0 +1,24 @@
+{
+  "name": "material-mean-boilerplate-front-end-lib",
+  "version": "1.0.0",
+  "description": "Front end libraries for Material Mean Boilerplate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shinjan Mitra",
+  "license": "ISC",
+  "dependencies": {
+    "@uirouter/angularjs": "^1.0.19",
+    "angular": "1.5.5",
+    "angular-animate": "1.5.5",
+    "angular-aria": "1.5.5",
+    "angular-jwt": "^0.1.9",
+    "angular-material": "1.1.0",
+    "angular-messages": "1.5.5",
+    "angular-resource": "1.5.5",
+    "angular-route": "1.5.5",
+    "sails.io.js": "^1.2.1",
+    "satellizer": "^0.15.5"
+  }
+}
