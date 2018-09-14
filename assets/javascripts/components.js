@@ -1,4 +1,4 @@
-angular.module('seil-bms-angularjs')
+angular.module('oneboard')
 .component('fan', {
     templateUrl: 'components/equipments/fan.html',
     controller: function($scope, $element, $attrs, Equipment){

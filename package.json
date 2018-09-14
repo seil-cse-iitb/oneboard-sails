@@ -1,5 +1,5 @@
 {
-  "name": "bms-sails",
+  "name": "oneboard",
   "private": true,
   "version": "0.0.0",
   "description": "a Sails application",
@@ -38,7 +38,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/shinjan/bms-sails.git"
+    "url": "git://github.com/shinjan/oneboard.git"
   },
   "author": "shinjan",
   "license": "",

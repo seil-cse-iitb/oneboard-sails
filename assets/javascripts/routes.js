@@ -1,4 +1,4 @@
-angular.module('seil-bms-angularjs')
+angular.module('oneboard')
 // .config(function($routeProvider) {
 //     $routeProvider
 //     .when("/", {

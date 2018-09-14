@@ -20,7 +20,7 @@ module.exports = {
           var sensor = await Sensor.findOne({ serial: sensor_id });
 
           if (!sensor) {
-            //sensor not found in bms database. Ignore and carry on
+            //sensor not found in oneboard database. Ignore and carry on
             // console.log(sensor_id + ' not found');
             return;
           }
@@ -40,7 +40,7 @@ module.exports = {
           var sensor = await Sensor.findOne({ serial: sensor_id });
 
           if (!sensor) {
-            //sensor not found in bms database. Ignore and carry on
+            //sensor not found in oneboard database. Ignore and carry on
             // console.log(sensor_id + ' not found');
             return;
           }

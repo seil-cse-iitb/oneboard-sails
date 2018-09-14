@@ -1,5 +1,5 @@
 var API_ROOT = CONFIG.BACKEND_HOST
-angular.module('seil-bms-angularjs')
+angular.module('oneboard')
 
     .controller('HomeCtrl', function ($scope, $http, Auth, $window, $location) {
         Auth.loginRequired();

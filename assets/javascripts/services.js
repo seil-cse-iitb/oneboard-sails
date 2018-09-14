@@ -1,6 +1,6 @@
 var API_ROOT = CONFIG.BACKEND_HOST
 
-angular.module('seil-bms-angularjs')
+angular.module('oneboard')
 
 .service('Auth',['$http','$location',function($http, $location){
 
