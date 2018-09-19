@@ -13,10 +13,12 @@ module.exports.policies = {
   '*': 'is-logged-in',
 
   // Bypass the `is-logged-in` policy for:
-  'entrance/*': true,
-  'account/logout': true,
-  'view-homepage-or-redirect': true,
-  'deliver-contact-form-message': true,
+  'auth/verify': 'jwt-auth',
+  'auth/*':true,
+  // 'entrance/*': true,
+  // 'account/logout': true,
+  // 'view-homepage-or-redirect': true,
+  // 'deliver-contact-form-message': true,
   'sensor/*':true,
   'equipment/*':true,
   'equipmentGroup/*':true,

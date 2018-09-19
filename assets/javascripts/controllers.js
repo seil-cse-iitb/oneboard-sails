@@ -2,12 +2,16 @@ var API_ROOT = CONFIG.BACKEND_HOST
 angular.module('oneboard')
 
     .controller('HomeCtrl', function ($scope, $http, Auth, $window, $location) {
-        Auth.loginRequired();
+
+    })
+    .controller('ToolbarCtrl', function ($scope, $http, Auth, $window, $location) {
+        $scope.isLoggedIn = Auth.isLoggedIn();
         $scope.logout = function () {
             $window.localStorage.removeItem('satellizer_token');
             $location.path('/login');
         }
     })
+    
     .controller('MasterCtrl', function ($scope, $http, Auth, $window, $location, $stateParams, Alert) {
         // Auth.loginRequired();
         $scope.logout = function () {
@@ -37,17 +41,7 @@ angular.module('oneboard')
         }
 
     })
-    .controller('205Ctrl', function ($scope, $http, Auth, $window, $location) {
-        // Auth.loginRequired();
-        $scope.changeState = function (appliance, state) {
-            var state_string = state ? "on" : "off";
-            $http.get(API_ROOT + "control/205/" + appliance + "/" + state_string);
-        }
-        $scope.logout = function () {
-            $window.localStorage.removeItem('satellizer_token');
-            $location.path('/');
-        }
-    })
+
     .controller('ExplorerCtrl', function ($scope, $http, $window, $stateParams, $state, $sce, Auth, Equipment, EquipmentGroup, Sensor, Util) {
         // Auth.loginRequired();
 
@@ -147,11 +141,12 @@ angular.module('oneboard')
         });
 
     })
-    .controller('LoginCtrl', ['$scope', '$window', '$http', '$location', '$auth', function ($scope, $window, $http, $location, $auth) {
+    .controller('LoginCtrl', ['$scope', '$window', '$http', '$location', '$auth', 'Auth', function ($scope, $window, $http, $location, $auth, Auth) {
+        Auth.logoutRequired();
         $scope.login = function () {
             $http.post('/auth/authenticate', $scope.user).then(function (response) {
                 $window.localStorage.setItem('satellizer_token', response.data.token);
-                $location.path('/');
+                $location.path('/explorer');
             }, function (response) {
                 alert(response.data.message);
             });
@@ -159,7 +154,7 @@ angular.module('oneboard')
         $scope.authenticate = function (provider) {
             $auth.authenticate(provider).then(function (response) {
                 // Signed in with IITBSSO.
-                $location.path('/');
+                $location.path('/explorer');
             })
                 .catch(function (response) {
                     // Something went wrong.

@@ -47,6 +47,6 @@ var loginState = {
 $stateProvider.state(homeState);
 $stateProvider.state(explorerState);
 $stateProvider.state(loginState);
-$urlRouterProvider.otherwise('/explorer');
+$urlRouterProvider.otherwise('/');
 
 });

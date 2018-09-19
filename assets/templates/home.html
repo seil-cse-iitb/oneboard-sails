@@ -1,11 +1,14 @@
 <div ng-include="'/templates/toolbar.html'"></div>
 <md-content layout layout-align="center top">
-<md-list flex="50" flex-sm="100"  ng-cloak>
-
-  <md-subheader class="md-no-sticky">Select classroom</md-subheader>
-  <md-list-item  ng-href="#/205">
-    <p>205</p>
-  </md-list-item>
-
-</md-list>
+    <section flex="100" layout layout-align="center center" layout-wrap>
+        <h1 style="font-size: 100px; font-weight: 100" class="text-center" flex="100" >
+            <img src="images/oneboard-logo.png" height="100px" alt="">
+            SEIL Oneboard
+        </h1>
+        <br>
+        <h2 style="font-size: 50px; font-weight: 100" class="text-center" flex="100">Open-source IoT platform</h2>    
+        <md-button ui-sref="login" class="md-primary md-raised" >
+            LOGIN
+        </md-button>
+    </section>
 </md-content>

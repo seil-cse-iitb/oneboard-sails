@@ -1,10 +1,14 @@
-<md-toolbar>
+<md-toolbar ng-controller="ToolbarCtrl">
   <div class="md-toolbar-tools">
-    <md-truncate> <img src="images/oneboard-logo-white-base.svg" width="50px" alt=""> <span style="position: relative; top: -17px">SEIL Oneboard</span></md-truncate>
+    <md-truncate> <a ui-sref="home"><img src="images/oneboard-logo-white-base.svg" width="50px" alt=""> <span style="position: relative; top: -17px">SEIL Oneboard</span></a></md-truncate>
 
     <span flex></span>
-    <md-button aria-label="Logout" ng-click="logout()">
+    <md-button aria-label="Logout" ng-click="logout()" ng-if="isLoggedIn">
       Logout
     </md-button>
+    <md-button aria-label="Login" ui-sref="login" ng-if="!isLoggedIn">
+      Login
+    </md-button>
+    
   </div>
 </md-toolbar>

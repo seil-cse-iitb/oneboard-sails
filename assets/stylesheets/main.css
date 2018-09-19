@@ -1,8 +1,11 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Questrial', sans-serif;
+  font-size: 24px;
 }
-
+h1, h2, h3, h4, h5, h6{
+  font-family: 'Roboto Slab', serif;  
+}
 a {
   color: #00B7FF;
 }
@@ -59,4 +62,7 @@ md-card md-switch{
 }
 .alert .md-list-item-text p{
   color:black;
+}
+.text-center{
+  text-align: center;
 }

@@ -34,15 +34,5 @@ angular.module('oneboard', ['ngMaterial','ui.router','ngResource','angular-jwt',
 	$httpProvider.interceptors.push('jwtInterceptor');
 })
 .config(function($authProvider){
-	$authProvider.oauth2({
-      name: 'iitbsso',
-      url: '/auth/provider',
-      clientId: 'HkRquN6lSDR8HFIAwclxuznLQjjMmAuNUJp3G7pQ',
-      redirectUri: window.location.origin,
-      authorizationEndpoint: 'https://gymkhana.iitb.ac.in/sso/oauth/authorize',
-      optionalUrlParams: ['scope'],
-      scope:['ldap'],
-      scopePrefix:'',
-      scopeDelimiter: ' '
-    });
+	$authProvider.oauth2(CONFIG.IITBSSO);
 })
