@@ -55,7 +55,16 @@ module.exports = {
       res.json(400, {"error":"location does not exist"});
     }
 
-  }
+  },
+  subscribe: function (req, res) {
+    if (!req.isSocket) {
+      return res.badRequest();
+    }
+
+    sails.sockets.join(req.socket, req.query.location);
+    console.log("New client connected to room " + req.query.location)
+    return res.ok();
+  },
 
 };
 

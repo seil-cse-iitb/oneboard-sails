@@ -10,19 +10,18 @@
 
 module.exports.policies = {
 
-  '*': 'is-logged-in',
+  // '*': 'is-logged-in',
+  // '*': ['jwt-auth'],
+
+  // "equipment/subscribe/*": [ 'acl'],
+  // "equipmentGroup/subscribe/*" :['acl'],
+  "alert": ["acl"],
+  "location/*":['jwt-auth', 'acl'],
+  "equipment/*": ['jwt-auth', 'acl'],
+  "equipmentGroup/*" :['jwt-auth', 'acl'],
 
   // Bypass the `is-logged-in` policy for:
   'auth/verify': 'jwt-auth',
   'auth/*':true,
-  // 'entrance/*': true,
-  // 'account/logout': true,
-  // 'view-homepage-or-redirect': true,
-  // 'deliver-contact-form-message': true,
-  'sensor/*':true,
-  'equipment/*':true,
-  'equipmentGroup/*':true,
-  'location/*':true,
-  'alert/*':true
 
 };

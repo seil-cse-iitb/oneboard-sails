@@ -11,6 +11,7 @@
     "async": "2.0.1",
     "bcrypt": "^3.0.0",
     "eslint": "^5.2.0",
+    "ip": "^1.1.5",
     "jwt-policy": "^0.7.0",
     "mqtt": "^2.18.3",
     "sails": "^1.0.2",
@@ -20,7 +21,8 @@
     "sails-hook-organics": "^0.13.0",
     "sails-hook-orm": "^2.1.0",
     "sails-hook-sockets": "^1.4.0",
-    "sails-mysql": "^1.0.0"
+    "sails-mysql": "^1.0.0",
+    "sails-seed": "^0.5.0"
   },
   "devDependencies": {
     "@sailshq/eslint": "^4.19.3",

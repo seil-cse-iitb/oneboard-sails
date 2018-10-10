@@ -31,7 +31,10 @@ angular.module('oneboard', ['ngMaterial','ui.router','ngResource','angular-jwt',
     whiteListedDomains: [CONFIG.BACKEND_DOMAIN]
 	});
 
-	$httpProvider.interceptors.push('jwtInterceptor');
+  $httpProvider.interceptors.push('jwtInterceptor');
+  io.sails.headers = {
+    authorization: 'Bearer ' + localStorage.getItem('satellizer_token')
+  }
 })
 .config(function($authProvider){
 	$authProvider.oauth2(CONFIG.IITBSSO);

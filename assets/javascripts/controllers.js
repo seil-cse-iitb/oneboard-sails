@@ -12,7 +12,7 @@ angular.module('oneboard')
         }
     })
     
-    .controller('MasterCtrl', function ($scope, $http, Auth, $window, $location, $stateParams, Alert) {
+    .controller('MasterCtrl', function ($auth, $scope, $http, Auth, $window, $location, $stateParams, Alert) {
         // Auth.loginRequired();
         $scope.logout = function () {
             $window.localStorage.removeItem('satellizer_token');
@@ -42,8 +42,8 @@ angular.module('oneboard')
 
     })
 
-    .controller('ExplorerCtrl', function ($scope, $http, $window, $stateParams, $state, $sce, Auth, Equipment, EquipmentGroup, Sensor, Util) {
-        // Auth.loginRequired();
+    .controller('ExplorerCtrl', function ($auth, $scope, $http, $window, $stateParams, $state, $sce, Auth, Equipment, EquipmentGroup, Sensor, Util) {
+        Auth.loginRequired();
 
         $scope.logout = function () {
             $window.localStorage.removeItem('satellizer_token');
