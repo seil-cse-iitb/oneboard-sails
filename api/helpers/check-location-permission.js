@@ -51,7 +51,7 @@ module.exports = {
         var location_properties = await sails.helpers.getLocationProperties(inputs.location);
         var buf = new Buffer(16);
         var offset = 0;
-        ip.toBuffer(location_properties.local_ip.address, buf, offset);  // local_ip at the beginning
+        // ip.toBuffer(location_properties.local_ip.address, buf, offset);  // local_ip at the beginning
         
         if(location_properties.local_ip && ip.toString(buf) == ip.mask(inputs.remoteAddress, location_properties.local_ip.mask)){
             return exits.success(true);        
