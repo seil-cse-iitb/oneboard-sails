@@ -49,7 +49,6 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
     adapter: 'sails-mysql',
-    url: 'mysql://root:MySQL@seil@10.129.149.33:3306/oneboard',
 
   },
 

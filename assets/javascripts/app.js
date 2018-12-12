@@ -1,4 +1,4 @@
-CONFIG.BACKEND_HOST =  "http://"+ CONFIG.BACKEND_DOMAIN+"/"
+CONFIG.BACKEND_HOST =  "http://"+ CONFIG.BACKEND_DOMAIN
 
 angular.module('oneboard', ['ngMaterial','ui.router','ngResource','angular-jwt','satellizer'])
 
