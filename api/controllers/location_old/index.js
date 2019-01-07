@@ -32,7 +32,29 @@ module.exports = {
        }
     },
  
-    fn: async function (inputs, exits) {
+    fn: async function (inputs, exits, ctx) {
+
+      if(inputs.location=='/'){
+         // requesting home page. return list of locations that this user is allowed to access from 1. ACL and 2. IP based location
+         var root = {
+            "name":"root",
+            "children":[]
+         }
+         var acls = await  Acl.find({
+            where: {user_id:ctx.req.user.data.username.toUpperCase()},
+            select: ['location']
+          });
+
+         for(var i in acls){
+            var name = await sails.helpers.locationToName(acls[i].location);
+            root.children.push({
+               name:name,
+               location:acls[i].location
+            })
+         }
+         return exits.success(root);
+      }
+         // console.log(ctx.req.user);
         let properties_file_path = sails.config.location_root + inputs.location + "properties.json";
        // Look for the passed in path on the filesystem
        if (await fileExists(properties_file_path)){

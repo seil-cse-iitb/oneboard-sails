@@ -1,5 +1,5 @@
 /**
- * Acl.js
+ * Location.js
  *
  * @description :: A model definition.  Represents a database table/collection/etc.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -12,18 +12,21 @@ module.exports = {
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
-    user_id: {
+    name: {
       type: 'string',
-      description: 'Unique user identifier. ',
+      description: 'Location human readable name',
       required: true,
       maxLength: 200,
-      example: '17305r005'
+      example: 'SIC213'
     },
-    access_level: {
-      type: 'number',
-      description:'The access level given to this user for this location. A lower number implies higher access level. 0 means super user',
-      required: true,
-      example: '2',
+    network: {
+      type: 'json',
+      description: 'IPv4 network address and netmask of the network at the location. Used for authorizing location based access.',
+      required: false
+    },
+    properties:{
+      type: 'json',
+      description:'A JSON meta data for this objects',
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
@@ -34,9 +37,18 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    location: {
-      model: 'location',
+    children: {
+      collection: 'location',
+      via: 'parents'
     },
+    parents: {
+      collection: 'location',
+      via: 'children'
+    },
+    acls: {
+      collection : 'acl',
+      via: 'location'
+    }
   },
 
 };

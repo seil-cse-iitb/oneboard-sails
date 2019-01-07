@@ -42,7 +42,7 @@ angular.module('oneboard')
 
     })
 
-    .controller('ExplorerCtrl', function ($auth, $scope, $http, $window, $stateParams, $state, $sce, Auth, Equipment, EquipmentGroup, Sensor, Util) {
+    .controller('ExplorerCtrl', function ($auth, $scope, $http, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, EquipmentGroup, Location, Sensor, Util) {
         Auth.loginRequired();
 
         $scope.logout = function () {
@@ -50,8 +50,14 @@ angular.module('oneboard')
             $location.path('/');
         }
         if (!$stateParams.location) {
-            $state.go('explorer', { location: '/' });
+            Acl.query({user_id:localStorage.getItem("user_id")}, function(res){
+                console.log(res)
+            })
         }
+        Location.query(function(res){
+            console.log(res);
+        })
+        /*
         $http.get(API_ROOT + 'location?location=' + $stateParams.location).then(function (res) {
             $scope.properties = res.data;
             for (const key in $scope.properties.embeds) {
@@ -86,6 +92,7 @@ angular.module('oneboard')
             })
 
         })
+        */
         $scope.navigate = function (location) {
             $state.go('explorer', { location: $stateParams.location + location });
         }

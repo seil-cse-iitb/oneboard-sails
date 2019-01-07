@@ -5,7 +5,9 @@ angular.module('oneboard')
   .service('Auth', ['$http', '$location', function ($http, $location) {
 
     this.loginRequired = function ($state) {
-      $http.get('auth/verify').then(function () { }, function () {
+      $http.get('auth/verify').then(function (res) {
+        localStorage.setItem('user_id', res.data.data.username);
+       }, function () {
         console.log("go to login");
         localStorage.removeItem('satellizer_token');
         $location.path('/login');
@@ -34,6 +36,12 @@ angular.module('oneboard')
   }])
   .factory('Sensor', function ($resource) {
     return $resource(API_ROOT + 'sensor/:sensorId', { sensorId: '@id' });
+  })
+  .factory('Location', function ($resource) {
+    return $resource(API_ROOT + 'location/:locationId', { sensorId: '@id' });
+  })
+  .factory('Acl', function ($resource) {
+    return $resource(API_ROOT + 'acl/:aclId', { sensorId: '@id' });
   })
   .factory('Equipment', function ($resource) {
     return $resource(API_ROOT + 'equipment/:equipmentId', { equipmentId: '@id' }, {

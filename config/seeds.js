@@ -8,14 +8,5 @@
  * http://github.com/frostme/sails-seed
  */
 module.exports.seeds = {
-    acl: {
-      data: [
-        {
-          user_id: 'admin',
-          location:  '/',
-          action:   'admin'
-        }
-      ],
-      unique: ['user_id', 'location', 'action']
-    }
-  }
+  
+}

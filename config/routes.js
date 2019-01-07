@@ -51,7 +51,6 @@ module.exports.routes = {
   // 'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
   'POST  /auth/iitbsso/callback':                        'AuthController.callback',
   'GET  /auth/verify':                        'AuthController.verify',
-  'GET   /location':                                     { action: 'location/index' },
   'POST  /equipment/actuate/:id':                        'EquipmentController.actuate',
   'POST  /equipmentGroup/actuate/:id':                        'EquipmentGroupController.actuate',
   '/sensor/subscribe':                        'SensorController.subscribe',

@@ -28,6 +28,9 @@ module.exports = async function (req, res, proceed) {
             console.log("no location")
             return proceed();
         }
+        if(req.query.location=='/'){
+            return proceed(); //always allow home page to be visible
+        }
         var result = await sails.helpers.checkLocationPermission(req.user.data.username.toUpperCase(), req.query.location, action, req.ip);
         if( result)
             return proceed();
