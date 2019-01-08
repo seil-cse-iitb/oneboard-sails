@@ -50,11 +50,11 @@ md-card md-switch{
   margin:1px;
 }
 .md-button.child{
-  position: absolute;
+  /* position: absolute; */
   font-size:20px;
   min-width:100px;
   min-height:60px;
-  top:50px;
+  /* top:50px; */
 }
 .indicator{
   width:50px;

@@ -1,4 +1,4 @@
-var ip = require('ip')
+var ip = require('ip');
 module.exports = {
   friendlyName: 'Get list of locations that a given user is allowed to access',
 
@@ -39,7 +39,7 @@ module.exports = {
     var locations=[];
     acls = await Acl.find({ user_id: inputs.user_id.toUpperCase(), access_level: { '<': action_map[inputs.access_level] }}).populate("location");
     for(var i in acls){
-      locations.push(acls[i].location)
+      locations.push(acls[i].location);
     }
     // IP based location filtering
     networked_locations = await Location.find({network:{ '!=': null }});

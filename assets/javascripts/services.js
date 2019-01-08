@@ -35,28 +35,28 @@ angular.module('oneboard')
     };
   }])
   .factory('Sensor', function ($resource) {
-    return $resource(API_ROOT + 'sensor/:sensorId', { sensorId: '@id' });
+    return $resource(API_ROOT + 'sensor/:id', { id: '@id' });
   })
   .factory('Location', function ($resource) {
-    return $resource(API_ROOT + 'location/:locationId', { sensorId: '@id' });
+    return $resource(API_ROOT + 'location/:id', { id: '@id' });
   })
   .factory('Acl', function ($resource) {
-    return $resource(API_ROOT + 'acl/:aclId', { sensorId: '@id' });
+    return $resource(API_ROOT + 'acl/:id', { id: '@id' });
   })
   .factory('Equipment', function ($resource) {
-    return $resource(API_ROOT + 'equipment/:equipmentId', { equipmentId: '@id' }, {
+    return $resource(API_ROOT + 'equipment/:id', { id: '@id' }, {
       //actions
-      actuate: { method: 'POST', params: { equipmentId: '@id' }, url: API_ROOT + 'equipment/actuate/:equipmentId' }
+      actuate: { method: 'POST', params: { id: '@id' }, url: API_ROOT + 'equipment/actuate/:id' }
     });
   })
   .factory('EquipmentGroup', function ($resource) {
-    return $resource(API_ROOT + 'equipmentGroup/:equipmentId', { equipmentId: '@id' }, {
+    return $resource(API_ROOT + 'equipmentGroup/:id', { id: '@id' }, {
       //actions
-      actuate: { method: 'POST', params: { equipmentId: '@id' }, url: API_ROOT + 'equipmentGroup/actuate/:equipmentId' }
+      actuate: { method: 'POST', params: { id: '@id' }, url: API_ROOT + 'equipmentGroup/actuate/:id' }
     });
   })
   .factory('Alert', function ($resource) {
-    return $resource(API_ROOT + 'alert/:alertId ASC', { alertId: '@id' });
+    return $resource(API_ROOT + 'alert/:id ASC', { id: '@id' });
   })
 // .factory('channel', function($resource) {
 //   return $resource('/todo/:todoId', { todoId:'@_id' });

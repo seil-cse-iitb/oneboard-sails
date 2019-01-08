@@ -2,15 +2,15 @@
 
     <md-content flex="100">
         <div ng-include="'templates/toolbar.html'"></div>
-        <section class="trail" layout flex="80" flex-offset="10" layout-align="start start">
+        <!-- <section class="trail" layout flex="80" flex-offset="10" layout-align="start start">
             <span ng-repeat="t in trail" >
                     <md-button class="md-accent" ng-click="navigateTrail(t)">{{t}}</md-button>
                     <span ng-if="!$last">></span>
             </span>
 
-        </section>
+        </section> -->
         <md-divider></md-divider>
-        <section layout flex="80" flex-offset="10" layout-align="start start" layout-wrap ng-if="properties.children && properties.children.length>0" style="position: relative;">
+        <section layout flex="80" flex-offset="10" layout-align="start start" layout-wrap ng-if="location.children && location.children.length>0" >
             <md-subheader flex="100">Locations</md-subheader>
             <!-- <md-card ng-repeat="child in properties.children" ng-click="navigate(child.location)" ng-style="child.style" class="child">
                 <md-card-header>
@@ -19,7 +19,7 @@
                     </md-card-header-text>
                 </md-card-header>
             </md-card> -->
-            <md-button class="md-raised child" md-colors="{background:'blue'}" ng-repeat="child in properties.children" ng-click="navigate(child.location)" ng-style="child.style" >{{child.name}}</md-button>
+            <md-button class="md-raised child" md-colors="{background:'blue'}" ng-repeat="child in location.children" ng-click="navigate(child.id)" ng-style="child.properties.style" >{{child.name}}</md-button>
         </section>
         <section layout flex="80" flex-offset="10" layout-align="start start" ng-if="properties.embeds && properties.embeds.length>0">
                 <div ng-repeat="embed in properties.embeds track by $index" ng-bind-html="embed"></div>        

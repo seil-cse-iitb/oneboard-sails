@@ -50,6 +50,21 @@ module.exports = {
       via: 'location'
     }
   },
-
+  ancestors: async function (id) {
+    var location = await Location.findOne({ id: id }).populate("parents");
+    var ancestors=[location];
+    
+    if (!location) {
+      throw require('flaverr')({
+        message: `Location does not exist.`,
+        code: 'E_UNKNOWN_LOCATION'
+      });
+    }
+    for(var i in location.parents){
+      
+      ancestors = ancestors.concat(await Location.ancestors(location.parents[i].id));
+    }
+    return ancestors;
+}
 };
 

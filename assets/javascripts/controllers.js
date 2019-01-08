@@ -1,4 +1,4 @@
-var API_ROOT = CONFIG.BACKEND_HOST
+var API_ROOT = CONFIG.BACKEND_HOST;
 angular.module('oneboard')
 
     .controller('HomeCtrl', function ($scope, $http, Auth, $window, $location) {
@@ -49,52 +49,46 @@ angular.module('oneboard')
             $window.localStorage.removeItem('satellizer_token');
             $location.path('/');
         }
+        $scope.location={};
         if (!$stateParams.location) {
-            Acl.query({user_id:localStorage.getItem("user_id")}, function(res){
-                console.log(res)
+            Location.query( function(res){
+                console.log(res);
+                $scope.location.children=res;
             })
         }
-        Location.query(function(res){
-            console.log(res);
-        })
-        /*
-        $http.get(API_ROOT + 'location?location=' + $stateParams.location).then(function (res) {
-            $scope.properties = res.data;
-            for (const key in $scope.properties.embeds) {
-                $scope.properties.embeds[key] = $sce.trustAsHtml($scope.properties.embeds[key]);
-
-            }
-            $scope.table = Array.matrix($scope.properties.rows, $scope.properties.cols, 0);
+        else{
+            Location.get({id:$stateParams.location},function(res){
+                $scope.location = res;
+            $scope.table = Array.matrix($scope.location.properties.rows, $scope.location.properties.cols, 0);
             Equipment.query({ location: $stateParams.location }, function (res) {
-                $scope.equipments = res;
-                for (var i = 0; i < $scope.equipments.length; i++) {
-                    var equipment = $scope.equipments[i];
-                    $scope.table[equipment.properties.row - 1][equipment.properties.col - 1] = { "equipment": $scope.equipments[i] }
-                };
-                // test
-                Sensor.query({ location: $stateParams.location }, function (res) {
-                    $scope.sensors = res;
-                    for (var i = 0; i < $scope.sensors.length; i++) {
-                        var sensor = $scope.sensors[i];
-                        if($scope.table[sensor.properties.row - 1][sensor.properties.col - 1])
-                            $scope.table[sensor.properties.row - 1][sensor.properties.col - 1].sensor = $scope.sensors[i];
-                        else
-                            $scope.table[sensor.properties.row - 1][sensor.properties.col - 1] = { "sensor": $scope.sensors[i] }
-
+                    $scope.equipments = res;
+                    for (var i = 0; i < $scope.equipments.length; i++) {
+                        var equipment = $scope.equipments[i];
+                        $scope.table[equipment.properties.row - 1][equipment.properties.col - 1] = { "equipment": $scope.equipments[i] }
                     };
-                    console.log($scope.table)
+                    // test
+                    Sensor.query({ location: $stateParams.location }, function (res) {
+                        $scope.sensors = res;
+                        for (var i = 0; i < $scope.sensors.length; i++) {
+                            var sensor = $scope.sensors[i];
+                            if($scope.table[sensor.properties.row - 1][sensor.properties.col - 1])
+                                $scope.table[sensor.properties.row - 1][sensor.properties.col - 1].sensor = $scope.sensors[i];
+                            else
+                                $scope.table[sensor.properties.row - 1][sensor.properties.col - 1] = { "sensor": $scope.sensors[i] }
+    
+                        };
+                        console.log($scope.table)
+                    })
+                });
+    
+                // Group
+                EquipmentGroup.query({ location: $stateParams.location }, function(res){
+                    $scope.equipment_groups = res;
                 })
-            });
-
-            // Group
-            EquipmentGroup.query({ location: $stateParams.location }, function(res){
-                $scope.equipment_groups = res;
             })
-
-        })
-        */
+        }
         $scope.navigate = function (location) {
-            $state.go('explorer', { location: $stateParams.location + location });
+            $state.go('explorer', { location: location });
         }
         $scope.navigateTrail = function(t){
             var location ="/";
@@ -106,9 +100,9 @@ angular.module('oneboard')
             }
             $state.go('explorer', { location: location });
         }
-        $scope.trail = $stateParams.location.split("/")
-        $scope.trail.pop();
-        $scope.trail.shift();
+        // $scope.trail = $stateParams.location.split("/")
+        // $scope.trail.pop();
+        // $scope.trail.shift();
         // console.log($scope.trail)
         io.socket.get('/sensor/subscribe?location=' + $stateParams.location, function (data, jwr) {
 
