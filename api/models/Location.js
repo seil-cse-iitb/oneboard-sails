@@ -48,6 +48,10 @@ module.exports = {
     acls: {
       collection : 'acl',
       via: 'location'
+    },
+    equipments: {
+      collection: 'equipment',
+      via: 'location'
     }
   },
   ancestors: async function (id) {

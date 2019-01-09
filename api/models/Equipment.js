@@ -34,13 +34,13 @@ module.exports = {
       maxLength: 200,
       example: 'fan'
     },
-    location: {
-      type: 'string',
-      description:'The full path heirarchy for the location of the equipment',
-      required: true,
-      maxLength: 255,
-      example: '/kresit/C/201'
-    },
+    // location: {
+    //   type: 'string',
+    //   description:'The full path heirarchy for the location of the equipment',
+    //   required: true,
+    //   maxLength: 255,
+    //   example: '/kresit/C/201'
+    // },
     properties:{
       type: 'json',
       description:'A JSON describing UI meta data for this objects',
@@ -56,6 +56,9 @@ module.exports = {
     groups: {
       collection: 'equipmentGroup',
       via: 'equipments'
+    },
+    location: {
+      model: 'location'
     }
   },
 

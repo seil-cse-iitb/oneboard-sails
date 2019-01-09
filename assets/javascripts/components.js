@@ -5,7 +5,7 @@ angular.module('oneboard')
         var ctrl = this;
         ctrl.fan.properties.state=ctrl.fan.properties.state||false;
         $scope.switch = function(equipment){
-            Equipment.actuate({equipmentId:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
+            Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
         }
     },
     bindings: {
@@ -18,7 +18,7 @@ angular.module('oneboard')
         var ctrl = this;
         ctrl.light.properties.state=ctrl.light.properties.state||false;
         $scope.switch = function(equipment){
-            Equipment.actuate({equipmentId:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
+            Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
         }
     },
     bindings: {
@@ -36,7 +36,7 @@ angular.module('oneboard')
             });
         }
         $scope.switch = function(equipment){
-            Equipment.actuate({equipmentId:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
+            Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
         }
     },
     bindings: {
@@ -49,7 +49,7 @@ angular.module('oneboard')
         var ctrl = this;
         ctrl.ac.properties.state=ctrl.ac.properties.state||false;
         $scope.switch = function(equipment){
-            Equipment.actuate({equipmentId:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
+            Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
         }
     },
     bindings: {
@@ -79,7 +79,7 @@ angular.module('oneboard')
         var ctrl = this;
         ctrl.zone.properties.state=ctrl.zone.properties.state||false;
         $scope.switch = function(equipment){
-            EquipmentGroup.actuate({equipmentId:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state}, function(res){
+            EquipmentGroup.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state}, function(res){
                 console.log(res);
                 $state.reload();
             });
