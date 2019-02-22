@@ -4,7 +4,13 @@
         <md-switch ng-model="$ctrl.ac.properties.state" aria-label="Switch" ng-click="switch($ctrl.ac)">{{$ctrl.ac.name}}</md-switch>
         </md-card-header-text>
     </md-card-header>
-    <div ng-include="'images/ac.svg'" layout layout-align="center start" class="ac" ng-class="{'on':$ctrl.ac.properties.state, 'vertical':$ctrl.ac.properties.orientation=='vertical'}"></div>
+    <div ng-include="'images/ac.svg'" layout layout-align="center start" hide-xs hide-sm class="ac" ng-class="{'on':$ctrl.ac.properties.state, 'vertical':$ctrl.ac.properties.orientation=='vertical'}"></div>
+    <span hide-gt-sm ng-show="$ctrl.ac.properties.state" class="ac" layout layout-padding layout-align="center start">
+        <i class="material-icons" id="ac" style="color:green">card_membership</i>
+    </span>
+    <span hide-gt-sm ng-hide="$ctrl.ac.properties.state" class="ac" layout layout-padding layout-align="center start">
+        <i class="material-icons" id="ac">payment</i>
+    </span>
     <!-- <md-card-actions layout="column" layout-align="start">
     </md-card-actions> -->
 

@@ -6,7 +6,10 @@
 
         </md-card-header-text>
     </md-card-header>
-    <div ng-include="'images/fan.svg'" layout class="light" layout-align="center start" ng-class="{'on':$ctrl.fan.properties.state}" class="{{$ctrl.fan.properties.oreintation}}"></div>
+    <div ng-include="'images/fan.svg'" class="light" layout layout-align="center start" hide-xs hide-sm ng-class="{'on':$ctrl.fan.properties.state}" class="{{$ctrl.fan.properties.oreintation}}"></div>
+    <span hide-gt-sm ng-class="{'on':$ctrl.fan.properties.state}" layout layout-padding layout-align="center start">
+        <i class="material-icons" id="fan">device_hub</i>
+    </span>
     <!-- <md-card-actions layout="column" layout-align="start">
         <md-slider flex class="md-warn" md-discrete ng-model="regulator" step="1" min="1" max="5" aria-label="rating">
             Regulator

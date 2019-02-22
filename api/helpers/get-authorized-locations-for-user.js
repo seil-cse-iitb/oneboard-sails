@@ -48,9 +48,10 @@ module.exports = {
       netmask = networked_locations[i].network.netmask;
       buf = new Buffer(16);
       offset = 0;  
-      console.log(ip.mask(inputs.remoteAddress, netmask));
+      console.log("remoteAddress: "+ inputs.remoteAddress);
+      console.log("After masking: "+ip.mask(inputs.remoteAddress, netmask));
       ip.toBuffer(address, buf, offset);  // local_ip at the beginning
-      console.log(ip.toString(buf));
+      console.log("Buf: " + ip.toString(buf));
       if( address && ip.toString(buf) === ip.mask(inputs.remoteAddress, netmask)){
         locations.push(networked_locations[i]);
       }

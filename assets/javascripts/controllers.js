@@ -52,13 +52,19 @@ angular.module('oneboard')
         $scope.location={};
         if (!$stateParams.location) {
             Location.query( function(res){
-                console.log(res);
+                // console.log(res);
                 $scope.location.children=res;
             })
         }
         else{
             Location.get({id:$stateParams.location},function(res){
                 $scope.location = res;
+                $scope.embeds = "";
+                // for(var i = 0; i < $scope.location.properties.embeds.length; i++){
+                    // $scope.embeds.push($sce.trustAsHtml($scope.location.properties.embeds[i]))
+                    // $scope.embeds +=$scope.location.properties.embeds[i];
+                // }
+                $scope.embeds = $sce.trustAsHtml($scope.location.properties.embeds);
             $scope.table = Array.matrix($scope.location.properties.rows, $scope.location.properties.cols, 0);
             Equipment.query({ location: $stateParams.location }, function (res) {
                     $scope.equipments = res;
@@ -77,7 +83,7 @@ angular.module('oneboard')
                                 $scope.table[sensor.properties.row - 1][sensor.properties.col - 1] = { "sensor": $scope.sensors[i] }
     
                         };
-                        console.log($scope.table)
+                        // console.log($scope.table)
                     })
                 });
     
@@ -85,7 +91,45 @@ angular.module('oneboard')
                 EquipmentGroup.query({ location: $stateParams.location }, function(res){
                     $scope.equipment_groups = res;
                 })
-            })
+            });
+
+
+            io.socket.get('/sensor/subscribe?location=' + $stateParams.location, function (data, jwr) {
+
+                io.socket.on('sensor_data', function (reading) {
+                    // console.log(reading)
+                    var sensor = Util.getBySerial($scope.sensors, reading.serial)
+                    if (sensor != null) {
+                        sensor.value = reading.temperature;
+                        var hue = 250 - (reading.temperature - 16) * (250 / 16)
+                        sensor.properties.style['background-color'] = "hsl(" + hue + ",100%,50%)"
+                        $scope.$apply();
+                    }
+                });
+                
+            });
+    
+            io.socket.get('/equipment/subscribe?location=' + $stateParams.location, function (data, jwr) {
+                io.socket.on('equipment_actuation', function (reading) {
+                    // console.log(reading)
+                    var equipment = Util.getBySerial($scope.equipments, reading.serial)
+                    if (equipment != null) {
+                        equipment.properties.state = reading.state;
+                        $scope.$apply();
+                    }
+                });
+            });
+    
+            io.socket.get('/equipmentGroup/subscribe?location=' + $stateParams.location, function (data, jwr) {
+                io.socket.on('equipment_group_actuation', function (reading) {
+                    // console.log(reading)
+                    var equipment_group = Util.getBySerial($scope.equipment_groups, reading.serial)
+                    if (equipment_group != null) {
+                        equipment_group.properties.state = reading.state;
+                        $scope.$apply();
+                    }
+                });
+            });
         }
         $scope.navigate = function (location) {
             $state.go('explorer', { location: location });
@@ -104,42 +148,7 @@ angular.module('oneboard')
         // $scope.trail.pop();
         // $scope.trail.shift();
         // console.log($scope.trail)
-        io.socket.get('/sensor/subscribe?location=' + $stateParams.location, function (data, jwr) {
-
-            io.socket.on('sensor_data', function (reading) {
-                // console.log(reading)
-                var sensor = Util.getBySerial($scope.sensors, reading.serial)
-                if (sensor != null) {
-                    sensor.value = reading.temperature;
-                    var hue = 250 - (reading.temperature - 16) * (250 / 16)
-                    sensor.properties.style['background-color'] = "hsl(" + hue + ",100%,50%)"
-                    $scope.$apply();
-                }
-            });
-            
-        });
-
-        io.socket.get('/equipment/subscribe?location=' + $stateParams.location, function (data, jwr) {
-            io.socket.on('equipment_actuation', function (reading) {
-                // console.log(reading)
-                var equipment = Util.getBySerial($scope.equipments, reading.serial)
-                if (equipment != null) {
-                    equipment.properties.state = reading.state;
-                    $scope.$apply();
-                }
-            });
-        });
-
-        io.socket.get('/equipmentGroup/subscribe?location=' + $stateParams.location, function (data, jwr) {
-            io.socket.on('equipment_group_actuation', function (reading) {
-                // console.log(reading)
-                var equipment_group = Util.getBySerial($scope.equipment_groups, reading.serial)
-                if (equipment_group != null) {
-                    equipment_group.properties.state = reading.state;
-                    $scope.$apply();
-                }
-            });
-        });
+        
 
     })
     .controller('LoginCtrl', ['$scope', '$window', '$http', '$location', '$auth', 'Auth', function ($scope, $window, $http, $location, $auth, Auth) {

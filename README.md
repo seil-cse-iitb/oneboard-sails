@@ -14,3 +14,5 @@ a [Sails v1](https://sailsjs.com) application for controlling and visualizing Io
 * docker load --input oneboard.tar.gz
 * Make a local copy of the config/local.js file and make the changes as instructed above.
 * docker run -d --rm -p 1337:1337 -v /home/seil/Applications/oneboard/local.js:/home/node/oneboard/config/local.js zgod/oneboard
+* Deploy as a service in docker swarm
+`docker service create --name oneboard -p 1337:1337 --mount type=bind,source=/home/shinjan/Workspaces/oneboard/config/local.js,destination=/home/node/oneboard/config/local.js,readonly zgod/oneboard`

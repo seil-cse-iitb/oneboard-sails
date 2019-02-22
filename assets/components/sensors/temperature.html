@@ -1,9 +1,4 @@
-<aside  class="sensor">
-    <center>
-    <small >{{$ctrl.temperature.name}}</small><br>
-</center>
-<md-button class="md-fab" aria-label="Sensor"  ng-href="{{$ctrl.temperature.properties.target}}" target="_blank" ng-style="$ctrl.temperature.properties.style">
-    {{$ctrl.temperature.value}}°C
-    
+<md-button class="md-fab sensor" aria-label="Sensor"  ng-href="{{$ctrl.temperature.properties.target}}" target="_blank" ng-style="$ctrl.temperature.properties.style" ng-show="$ctrl.temperature.value">
+    <span class="reading">{{$ctrl.temperature.value}}</span>°C
+    <badge style="padding:5px">{{$ctrl.temperature.name}}</badge>
 </md-button>
-</aside>

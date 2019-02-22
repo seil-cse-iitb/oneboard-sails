@@ -8,8 +8,16 @@
     </md-card-header>
     <div layout layout-align="center start" flex="100" >
 
-    <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" ng-include="'images/tube_light.svg'" layout layout-align="center start" flex="30" class="light" ng-class="{'on':$ctrl.lightArray.properties.state}" class="{{$ctrl.lightArray.properties.orientation}}"></span>
+        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" ng-include="'images/tube_light.svg'" layout layout-align="center start" flex="30" hide-xs hide-sm class="light" ng-class="{'on':$ctrl.lightArray.properties.state}" class="{{$ctrl.lightArray.properties.orientation}}"></span>
+        
+        
+        <!-- for mobile browsers -->
+        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" layout layout-align="center start" layout-padding flex="30" hide-gt-md class="light" ng-show="$ctrl.lightArray.properties.state">
+                <i class="material-icons">brightness_high</i>
+        </span>
+        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" layout layout-align="center start" layout-padding flex="30" hide-gt-md class="light" ng-hide="$ctrl.lightArray.properties.state">
+                <i class="material-icons">brightness_low</i>
+        </span>
+
     </div>
-    <!-- <md-card-actions layout="column" layout-align="start">
-    </md-card-actions> -->
 </md-card>
