@@ -8,7 +8,23 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 var request = require('request');
 module.exports = {
+    authenticate: async function (req, res){
+        var user = await User.findOne({emailAddress:req.body.username});
+        if (bcrypt.compareSync(req.body.password, user.password)){
+            var token = jwt.sign({
+                data: {username:user.emailAddress}
+            }, sails.config.session.secret, { expiresIn: '365d' });
 
+            // return the information including token as JSON
+            res.send({
+                message: 'Enjoy your token!',
+                token: token
+            });
+        }
+        else{
+            return res.status(400).send({ message: "User not authenticated" });
+        }
+    },
     callback: async function (req, res) {
         var params = {
             grant_type: 'authorization_code',

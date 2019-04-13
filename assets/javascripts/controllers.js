@@ -18,6 +18,7 @@ angular.module('oneboard')
             $window.localStorage.removeItem('satellizer_token');
             $location.path('/login');
         }
+        $scope.hell_raised = false;
         io.socket.get('/alert?resolved=false&sort=createdAt DESC&limit=10', function (resData) {
             console.log(resData);
             $scope.alerts = resData;
@@ -26,6 +27,10 @@ angular.module('oneboard')
                 // console.log(alert)
                 switch(alert.verb){
                     case "created":$scope.alerts.unshift(alert.data);
+                                    console.log(alert)
+                                    if (alert.data.level === "danger"){
+                                        $scope.raise_hell();
+                                    }
                 }
                 
                 $scope.$apply();
@@ -38,6 +43,11 @@ angular.module('oneboard')
                 case 'info': return '';break;
                 case 'success': return 'primary';break;
             }
+        }
+        $scope.raise_hell = function(){
+            console.log("RAISE HELL!!")
+            $scope.hell_raised = true;
+            $scope.$apply();
         }
 
     })

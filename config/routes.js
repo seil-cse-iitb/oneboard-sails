@@ -49,6 +49,7 @@ module.exports.routes = {
   // 'POST  /api/v1/entrance/send-password-recovery-email': { action: 'entrance/send-password-recovery-email' },
   // 'POST  /api/v1/entrance/update-password-and-login':    { action: 'entrance/update-password-and-login' },
   // 'POST  /api/v1/deliver-contact-form-message':          { action: 'deliver-contact-form-message' },
+  'POST  /auth/authenticate':                        'AuthController.authenticate',
   'POST  /auth/iitbsso/callback':                        'AuthController.callback',
   'GET  /auth/verify':                        'AuthController.verify',
   'POST  /equipment/actuate/:id':                        'EquipmentController.actuate',

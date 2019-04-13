@@ -6,9 +6,23 @@
 
         </md-card-header-text>
     </md-card-header>
-    <div layout layout-align="center start" flex="100" >
+    <div layout layout-align="center start" flex="100" ng-if="$ctrl.lightArray.properties.orientation=='horizontal'">
 
-        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" ng-include="'images/tube_light.svg'" layout layout-align="center start" flex="30" hide-xs hide-sm class="light" ng-class="{'on':$ctrl.lightArray.properties.state}" class="{{$ctrl.lightArray.properties.orientation}}"></span>
+        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" ng-include="'images/light.svg'" layout layout-align="center start" flex="30" hide-xs hide-sm class="light" ng-class="{'on':$ctrl.lightArray.properties.state}" ></span>
+        
+        
+        <!-- for mobile browsers -->
+        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" layout layout-align="center start" layout-padding flex="30" hide-gt-md class="light" ng-show="$ctrl.lightArray.properties.state">
+                <i class="material-icons">brightness_high</i>
+        </span>
+        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" layout layout-align="center start" layout-padding flex="30" hide-gt-md class="light" ng-hide="$ctrl.lightArray.properties.state">
+                <i class="material-icons">brightness_low</i>
+        </span>
+
+    </div>
+    <div layout='column' layout-align="start center" flex="100" ng-if="$ctrl.lightArray.properties.orientation=='vertical'">
+
+        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" ng-include="'images/light_vertical.svg'" layout layout-align="center start" flex="30" hide-xs hide-sm class="light " ng-class="{'on':$ctrl.lightArray.properties.state}" ></span>
         
         
         <!-- for mobile browsers -->

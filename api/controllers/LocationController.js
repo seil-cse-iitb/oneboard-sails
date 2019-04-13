@@ -7,6 +7,7 @@
 
 module.exports = {
   find : async function (req, res){
+    console.log(req.user);
     var locations = await sails.helpers.getAuthorizedLocationsForUser(req.user.data.username.toUpperCase(), 'show', req.ip);
     res.json(locations);
   }
