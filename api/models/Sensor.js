@@ -26,13 +26,6 @@ module.exports = {
       maxLength: 200,
       example: 'Server Room Smart Meter'
     },
-    location: {
-      type: 'string',
-      description:'The full path heirarchy for the location of the sensor',
-      required: true,
-      maxLength: 255,
-      example: '/kresit/C/201'
-    },
     type: {
       type: 'string',
       description:'The category of sensor',
@@ -43,7 +36,7 @@ module.exports = {
     properties:{
       type: 'json',
       description:'A JSON describing UI meta data for this objects',
-    }
+    },
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
@@ -52,7 +45,13 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-
+    location: { // location where this sensor is installed
+      model: 'location'
+    },
+    groups: { // cluster of equipments that this sensor is sensing
+      collection: 'equipmentGroup',
+      via: 'sensors'
+    },
   },
 
 };

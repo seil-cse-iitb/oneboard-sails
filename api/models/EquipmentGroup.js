@@ -50,9 +50,21 @@ module.exports = {
       collection: 'equipment',
       via: 'groups'
     },
+    sensors: {
+      collection: 'sensor',
+      via: 'groups'
+    },
     location: {
       model: 'location'
-    }
+    },
+    children: {
+      collection: 'equipmentGroup',
+      via: 'parents'
+    },
+    parents: {
+      collection: 'equipmentGroup',
+      via: 'children'
+    },
   },
 
 };
