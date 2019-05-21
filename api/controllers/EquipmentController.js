@@ -31,6 +31,7 @@ module.exports = {
         res.json({ "message": "Message sent successfully" });
         // store the new state info into database
         equipment.properties.state = req.body.state;
+        console.log(req.body.state);
         Equipment.update({ id: equipment.id }).set({ properties: equipment.properties }).exec(function (err, result) {
 
           sails.sockets.broadcast(equipment.location.id, 'equipment_actuation', { 'serial': equipment.serial, 'state': equipment.properties.state }); //broadcast the actuation event to front end using socket

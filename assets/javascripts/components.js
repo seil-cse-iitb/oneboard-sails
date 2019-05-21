@@ -47,9 +47,19 @@ angular.module('oneboard')
     templateUrl: 'components/equipments/ac.html',
     controller: function($scope, $element, $attrs, Equipment){
         var ctrl = this;
-        ctrl.ac.properties.state=ctrl.ac.properties.state||false;
+        ctrl.ac.properties.state.on=ctrl.ac.properties.state.on||false;
         $scope.switch = function(equipment){
-            Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
+            var state = equipment.properties.state;
+            state.on = !state.on;
+            Equipment.actuate({id:equipment.id},{msg:"S"+Number(state.on), state:state});
+        }
+        $scope.change_temp = function(equipment, new_temp){
+            if (new_temp<18 || new_temp>28){
+                return ;
+            }
+            console.log(new_temp);
+            equipment.properties.state.temperature = new_temp;
+            Equipment.actuate({id:equipment.id},{msg:"T"+Number(equipment.properties.state.temperature), state:equipment.properties.state});
         }
     },
     bindings: {
