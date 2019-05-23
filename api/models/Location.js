@@ -49,9 +49,19 @@ module.exports = {
       collection : 'acl',
       via: 'location'
     },
-    equipments: {
+    hasEquipments: {
       collection: 'equipment',
-      via: 'location'
+      via: 'isLocatedIn'
+    },
+    containsPoints: { 
+      collection: 'point',
+      via:'isLocatedIn',
+      description: 'points which are physically located in this location'
+    },
+    hasAttachedPoints :{ 
+      collection: 'point',
+      via: 'isPointOfLocations',
+      description: 'points which are attached to this location (measures something, alerts something about this location).'
     }
   },
   ancestors: async function (id) {
@@ -69,6 +79,24 @@ module.exports = {
       ancestors = ancestors.concat(await Location.ancestors(location.parents[i].id));
     }
     return ancestors;
-}
+  },
+
+  descendants: async function (id) {
+    var location = await Location.findOne({ id: id }).populate("children");
+    var descendants=[location];
+    
+    if (!location) {
+      throw require('flaverr')({
+        message: `Location does not exist.`,
+        code: 'E_UNKNOWN_LOCATION'
+      });
+    }
+    for(var i in location.children){
+      
+      descendants = descendants.concat(await Location.descendants(location.children[i].id));
+    }
+    return descendants;
+  },
+  
 };
 

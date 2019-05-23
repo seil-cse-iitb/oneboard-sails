@@ -1,5 +1,5 @@
 /**
- * EquipmentGroup.js
+ * Point.js
  *
  * @description :: A model definition.  Represents a database table/collection/etc.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -12,32 +12,15 @@ module.exports = {
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
-    serial: {
-      type: 'string',
-      description: 'A location unique name constructed by humans following some rules to identify the object',
-      required: true,
-      maxLength: 200,
-      example: 'Z1L'
-    },
-    name: {
-      type: 'string',
-      description:'A human understandable name for the object',
-      required: true,
-      maxLength: 200,
-      example: 'All fans'
-    },
-    // location: {
-    //   type: 'string',
-    //   description:'The full path heirarchy for the location of the equipment group',
-    //   required: true,
-    //   maxLength: 255,
-    //   example: '/kresit/C/201'
-    // },
-    properties:{
-      type: 'json',
-      description:'A JSON describing UI meta data for this objects',
-    },
 
+    point_type: {
+      type: 'string',
+      description:'The subclass type of this point',
+      required: true,
+      maxLength: 200,
+      isIn :['sensor', 'alert', 'actuator'],
+      example: 'sensor'
+    },
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
@@ -46,25 +29,31 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    equipments: {
+    isPointOfLocations: {
+      collection: 'location',
+      via: 'hasAttachedPoints',
+      description: "Locations that this point is attached to (measures something, alerts something about this location)."
+    },
+    isLocatedIn: {
+      model: 'location',
+      description: 'Location this point is physically located in.'
+    },
+
+    isPointOfEquipments: {
       collection: 'equipment',
-      via: 'groups'
+      via: 'hasAttachedPoints',
+      description: "Equipments that this point is attached to (measures something, alerts something about this equipment)."
     },
-    sensors: {
+    isPartOf: {
+      model: 'equipment',
+      description: 'Equipment this point is physically part of.'
+    },
+
+    sensor:{
       collection: 'sensor',
-      via: 'groups'
-    },
-    location: {
-      model: 'location'
-    },
-    children: {
-      collection: 'equipmentGroup',
-      via: 'parents'
-    },
-    parents: {
-      collection: 'equipmentGroup',
-      via: 'children'
-    },
+      via: 'point',
+      description: 'The sensor that this point represents.'
+    }
   },
 
 };

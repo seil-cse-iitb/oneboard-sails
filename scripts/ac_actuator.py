@@ -15,6 +15,8 @@ def change_temp(AC_serial, temp_diff):
     data = r.json()
     id = data[0]["id"]
     data[0]["properties"]["state"]["temperature"] += temp_diff
+    if(data[0]["properties"]["state"]["temperature"]<21 or data[0]["properties"]["state"]["temperature"]>28):
+        return False
     print ("Setting temperature of %d to %d"%(id, data[0]["properties"]["state"]["temperature"] ))
     data = {'msg':"T"+str(data[0]["properties"]["state"]["temperature"]), 'state':data[0]["properties"]["state"]}
     print(data) 

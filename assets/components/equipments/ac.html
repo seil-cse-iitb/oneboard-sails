@@ -3,9 +3,9 @@
         <md-card-header-text layout>
         <md-switch ng-model="$ctrl.ac.properties.state.on" aria-label="Switch" ng-click="switch($ctrl.ac)" flex="50">{{$ctrl.ac.name}}</md-switch>
         <div flex="50" ng-show="$ctrl.ac.properties.state.temperature">
-            <md-button class="md-icon-button" aria-label="Decrease temperature"><md-icon class="material-icons" ng-click="change_temp($ctrl.ac, $ctrl.ac.properties.state.temperature-1)">remove</md-icon></md-button>
+            <md-button class="md-icon-button" aria-label="Decrease temperature" ng-disabled="!$ctrl.ac.properties.state.on" ng-click="change_temp($ctrl.ac, $ctrl.ac.properties.state.temperature-1)"><md-icon class="material-icons" >remove</md-icon></md-button>
             <span class="md-icon-button">{{$ctrl.ac.properties.state.temperature}}</span>
-            <md-button class="md-icon-button" aria-label="Increase temperature"><md-icon class="material-icons" ng-click="change_temp($ctrl.ac, $ctrl.ac.properties.state.temperature+1)">add</md-icon></md-button>  
+            <md-button class="md-icon-button" aria-label="Increase temperature" ng-disabled="!$ctrl.ac.properties.state.on" ng-click="change_temp($ctrl.ac, $ctrl.ac.properties.state.temperature+1)"><md-icon class="material-icons" >add</md-icon></md-button>  
         </div>
         </md-card-header-text>
     </md-card-header>

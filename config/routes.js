@@ -53,10 +53,8 @@ module.exports.routes = {
   'POST  /auth/iitbsso/callback':                        'AuthController.callback',
   'GET  /auth/verify':                        'AuthController.verify',
   'POST  /equipment/actuate/:id':                        'EquipmentController.actuate',
-  'POST  /equipmentGroup/actuate/:id':                        'EquipmentGroupController.actuate',
   '/sensor/subscribe':                        'SensorController.subscribe',
   '/equipment/subscribe':                        'EquipmentController.subscribe',
-  '/equipmentGroup/subscribe':                        'EquipmentGroupController.subscribe',
   'GET  /sensor/test':                        'SensorController.test',
   'GET  /alert/generate':                        'AlertController.generate',
 

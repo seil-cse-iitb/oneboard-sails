@@ -34,16 +34,9 @@ module.exports = {
       maxLength: 200,
       example: 'fan'
     },
-    // location: {
-    //   type: 'string',
-    //   description:'The full path heirarchy for the location of the equipment',
-    //   required: true,
-    //   maxLength: 255,
-    //   example: '/kresit/C/201'
-    // },
     properties:{
       type: 'json',
-      description:'A JSON describing UI meta data for this objects',
+      description:'A JSON describing meta data for this objects',
     },
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -53,12 +46,27 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    groups: {
-      collection: 'equipmentGroup',
-      via: 'equipments'
-    },
-    location: {
+    
+    isLocatedIn: {
       model: 'location'
+    },
+    children: {
+      collection: 'equipment',
+      via: 'parents'
+    },
+    parents: {
+      collection: 'equipment',
+      via: 'children'
+    },
+    containsPoints: { 
+      collection: 'point',
+      via:'isPartOf',
+      description: 'Points which are physically part of this equipment'
+    },
+    hasAttachedPoints :{ 
+      collection: 'point',
+      via: 'isPointOfEquipments',
+      description: 'Points which are attached to this equipment (measures something, alerts something about this equipment).'
     }
   },
 

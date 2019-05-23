@@ -51,7 +51,12 @@ angular.module('oneboard')
         $scope.switch = function(equipment){
             var state = equipment.properties.state;
             state.on = !state.on;
-            Equipment.actuate({id:equipment.id},{msg:"S"+Number(state.on), state:state});
+            if(state.on){
+                Equipment.actuate({id:equipment.id},{msg:"T"+Number(equipment.properties.state.temperature), state:state});    
+            }
+            else{
+                Equipment.actuate({id:equipment.id},{msg:"T00", state:state});
+            }
         }
         $scope.change_temp = function(equipment, new_temp){
             if (new_temp<18 || new_temp>28){
@@ -60,6 +65,7 @@ angular.module('oneboard')
             console.log(new_temp);
             equipment.properties.state.temperature = new_temp;
             Equipment.actuate({id:equipment.id},{msg:"T"+Number(equipment.properties.state.temperature), state:equipment.properties.state});
+            // Equipment.actuate({id:equipment.id},{msg:"T1", state:equipment.properties.state});
         }
     },
     bindings: {

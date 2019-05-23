@@ -53,8 +53,8 @@ angular.module('oneboard')
     })
 
     .controller('ExplorerCtrl', function ($auth, $scope, $http, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, EquipmentGroup, Location, Sensor, Util) {
-        Auth.loginRequired();
-
+        Auth.loginRequired($scope);
+        console.log($scope.user);
         $scope.logout = function () {
             $window.localStorage.removeItem('satellizer_token');
             $location.path('/');

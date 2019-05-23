@@ -31,20 +31,19 @@ module.exports = {
         res.json({ "message": "Message sent successfully" });
         // store the new state info into database
         equipment.properties.state = req.body.state;
-        console.log(req.body.state);
         Equipment.update({ id: equipment.id }).set({ properties: equipment.properties }).exec(function (err, result) {
 
           sails.sockets.broadcast(equipment.location.id, 'equipment_actuation', { 'serial': equipment.serial, 'state': equipment.properties.state }); //broadcast the actuation event to front end using socket
           // if the equipment is turned off then equipment group has to be deactivated too. Not to be done when equipment is turned on.
-          if (equipment.properties.state) return;
-          for (var i in equipment.groups) {
-            var equipment_group = equipment.groups[i];
-            equipment_group.properties.state = equipment.properties.state;
-            console.log("Updating " + equipment_group.id)
-            EquipmentGroup.update({ id: equipment_group.id }).set({ properties: equipment_group.properties }).exec(function (err, result) { });
-            sails.sockets.broadcast(equipment_group.location.id, 'equipment_group_actuation', { 'serial': equipment_group.serial, 'state': equipment_group.properties.state }); //broadcast the actuation event to front end using socket
+          // if (equipment.properties.state) return;
+          // for (var i in equipment.groups) {
+          //   var equipment_group = equipment.groups[i];
+          //   equipment_group.properties.state = equipment.properties.state;
+          //   console.log("Updating " + equipment_group.id)
+          //   EquipmentGroup.update({ id: equipment_group.id }).set({ properties: equipment_group.properties }).exec(function (err, result) { });
+          //   sails.sockets.broadcast(equipment_group.location.id, 'equipment_group_actuation', { 'serial': equipment_group.serial, 'state': equipment_group.properties.state }); //broadcast the actuation event to front end using socket
 
-          }
+          // }
         });
       });
 

@@ -18,8 +18,7 @@ module.exports.policies = {
   "alert": ["acl"],
   "location/*":['jwt-auth', 'acl'],
   "equipment/*": ['jwt-auth', 'acl'],
-  "equipmentGroup/*" :['jwt-auth', 'acl'],
-
+  "acl/*": ['jwt-auth', "prevent-trespassing"],
   // Bypass the `is-logged-in` policy for:
   'auth/verify': 'jwt-auth',
   'auth/*':true,

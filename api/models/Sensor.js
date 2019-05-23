@@ -45,14 +45,15 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    location: { // location where this sensor is installed
-      model: 'location'
-    },
-    groups: { // cluster of equipments that this sensor is sensing
-      collection: 'equipmentGroup',
-      via: 'sensors'
+    point: { 
+      model: 'point',
+      unique: true
     },
   },
+  isLocatedIn: async function(id){
+    var sensor = await Sensor.findOne({ id: id }).populate("point.isLocatedIn");
+    return sensor.point.isLocatedIn;
 
+  }
 };
 

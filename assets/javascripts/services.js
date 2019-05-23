@@ -4,9 +4,12 @@ angular.module('oneboard')
 
   .service('Auth', ['$http', '$location', function ($http, $location) {
 
-    this.loginRequired = function ($state) {
+    this.loginRequired = function ($state, scope) {
+      console.log("login required")
       $http.get('auth/verify').then(function (res) {
         localStorage.setItem('user_id', res.data.data.username);
+        scope.user= res.data.data;
+        console.log(res.data.data)
        }, function () {
         console.log("go to login");
         localStorage.removeItem('satellizer_token');
