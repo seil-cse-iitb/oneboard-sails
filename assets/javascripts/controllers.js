@@ -54,7 +54,7 @@ angular.module('oneboard')
 
     .controller('ExplorerCtrl', function ($auth, $scope, $http, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, EquipmentGroup, Location, Sensor, Util) {
         Auth.loginRequired($scope);
-        console.log($scope.user);
+
         $scope.logout = function () {
             $window.localStorage.removeItem('satellizer_token');
             $location.path('/');
@@ -67,6 +67,10 @@ angular.module('oneboard')
             })
         }
         else{
+            Acl.query({user_id:localStorage.getItem("user_id").toUpperCase(), location:$stateParams.location||null}, function(res){
+                $scope.is_admin = res[0].access_level ==1;
+                console.log($scope.is_admin);
+            })
             Location.get({id:$stateParams.location},function(res){
                 $scope.location = res;
                 $scope.embeds = "";
@@ -153,6 +157,24 @@ angular.module('oneboard')
                 }
             }
             $state.go('explorer', { location: location });
+        }
+
+        $scope.create_location = function(new_location){
+            Location.save({name:new_location.name, parents:[$stateParams.location]}, function(res){
+                console.log(res)
+                $scope.location.children.push(res)
+            })
+        }
+        $scope.remove_location = function(location_id){
+            Location.remove({id:location_id}, function(res){
+                var i =0;
+                for (i in $scope.location.children){
+                    if($scope.location.children[i].id == location_id){
+                        break;
+                    }
+                }
+                $scope.location.children.splice(i,1)
+            })
         }
         // $scope.trail = $stateParams.location.split("/")
         // $scope.trail.pop();

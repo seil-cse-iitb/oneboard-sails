@@ -24,7 +24,7 @@ module.exports = async function (req, res, proceed) {
     user_id = req.user.data.username.toUpperCase();
   }
   // If request contains same user id as logged in user, allow it.
-  if(req.query.user_id && req.query.user_id != user_id){
+  if(req.query.user_id && req.query.user_id.toUpperCase() != user_id.toUpperCase()){
     return res.forbidden();
   }
   //--•

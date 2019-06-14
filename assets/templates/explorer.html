@@ -1,7 +1,26 @@
-<section layout="row" flex>
+<section layout="row" flex ng-class="{ 'is-admin': is_admin && editor_mode }">
+
+
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4" ng-show="is_admin && editor_mode">
+
+        <md-toolbar class="md-theme-light">
+            <h1 class="md-toolbar-tools">Editor panel</h1>
+        </md-toolbar>
+        <md-content layout-padding>
+            <md-subheader>Location</md-subheader>
+            <form ng-submit="create_location(new_location)">
+                <md-input-container>
+                    <label>Name</label>
+                    <input ng-model="new_location.name" >
+                </md-input-container>
+                <md-button class="md-primary md-raised md-mini" type="submit">Create location</md-button>
+            </form>
+        </md-content>
+    </md-sidenav>
 
     <md-content flex="100" ng-class="{'raise-hell':hell_raised}">
         <div ng-include="'templates/toolbar.html'"></div>
+
         <!-- <section class="trail" layout flex="100" flex-gt-sm="80" flex-offset-gt-sm="10" layout-align="start start">
             <span ng-repeat="t in trail" >
                     <md-button class="md-accent" ng-click="navigateTrail(t)">{{t}}</md-button>
@@ -10,6 +29,10 @@
 
         </section> -->
         <md-divider></md-divider>
+        <div layout layout-padding>
+            <span flex></span>
+            <md-switch ng-model="editor_mode" aria-label="Switch" ng-show="is_admin"><small>Editor mode</small></md-switch>
+        </div>
         <section layout flex="100" flex-gt-sm="80" flex-offset-gt-sm="10" layout-align="start start" layout-wrap ng-if="location.children && location.children.length>0" >
             <md-subheader flex="100">Locations</md-subheader>
             <!-- <md-card ng-repeat="child in properties.children" ng-click="navigate(child.location)" ng-style="child.style" class="child">
@@ -19,7 +42,15 @@
                     </md-card-header-text>
                 </md-card-header>
             </md-card> -->
-            <md-button class="md-raised child" md-colors="{background:'blue'}" ng-repeat="child in location.children" ng-click="navigate(child.id)" ng-style="child.properties.style" >{{child.name}}</md-button>
+            <div ng-repeat="child in location.children" class="child">
+                <md-button class="md-raised location-btn" md-colors="{background:'blue'}" ng-click="navigate(child.id)" ng-style="child.properties.style" flex="100">
+                    {{child.name}}
+                </md-button>
+                <md-button class="md-fab md-mini control-btn" aria-label="More" ng-click="remove_location(child.id)" ng-show="is_admin && editor_mode">
+                    <md-icon class="material-icons">delete</md-icon>
+                </md-button>
+            </div>
+            
         </section>
         <section layout flex="100" flex-gt-sm="80" flex-offset-gt-sm="10" layout-align="center start" layout-wrap layout-padding ng-if="embeds" ng-bind-html="embeds">
                 
@@ -51,7 +82,7 @@
         </section>
     </md-content>
 
-    <md-sidenav class="md-sidenav-right" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+    <md-sidenav class="md-sidenav-right" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4" ng-hide="is_admin && editor_mode">
 
         <md-toolbar class="md-theme-light">
             <h1 class="md-toolbar-tools">Alerts</h1>

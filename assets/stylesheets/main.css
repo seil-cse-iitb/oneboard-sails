@@ -57,7 +57,7 @@ table md-card .md-actions, table md-card md-card-actions{
 md-card md-switch{
   margin:1px;
 }
-.md-button.child{
+.child .location-btn{
   /* position: absolute; */
   font-size:20px;
   min-width:100px;
@@ -82,4 +82,22 @@ md-card md-switch{
 }
 .raise-hell{
 	animation: raise_hell 2s linear infinite ;
+}
+
+.is-admin md-toolbar{
+  background-color: #673ab7;
+}
+.child{
+  position: relative;
+}
+.child .control-btn.md-mini.md-fab{
+  position: absolute;
+  visibility: hidden;
+  top:-20px;
+  right:-20px;
+  z-index: 2;
+}
+.child:hover .control-btn.md-mini.md-fab{
+  color:#ffffff;
+  visibility: initial;
 }
