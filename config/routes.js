@@ -57,6 +57,7 @@ module.exports.routes = {
   '/equipment/subscribe':                        'EquipmentController.subscribe',
   'GET  /sensor/test':                        'SensorController.test',
   'GET  /alert/generate':                        'AlertController.generate',
+  'GET  /location/:id/descendants':                        'LocationController.descendants',
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
   //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
