@@ -35,6 +35,17 @@ angular.module('oneboard')
       return null;
     };
   }])
+  .factory('prompt', function () {
+
+    /* Uncomment the following to test that the prompt service is working as expected.
+    return function () {
+      return "Test!";
+    }
+    */
+  
+    // Return the browsers prompt function.
+    return prompt;
+  })
   .factory('Sensor', function ($resource) {
     return $resource(API_ROOT + 'sensor/:id', { id: '@id' });
   })

@@ -14,6 +14,8 @@
     <body ng-app="oneboard">
 
 		<ui-view layout="column" style="height:100%" ng-controller="MasterCtrl"></ui-view>
+
+		<!-- Angular includes -->
         <script type='text/javascript' src='lib/node_modules/angular/angular.min.js'></script>
 		<script type='text/javascript' src='lib/node_modules/angular-animate/angular-animate.min.js'></script>
 		<script type='text/javascript' src='lib/node_modules/angular-aria/angular-aria.min.js'></script>
@@ -22,10 +24,21 @@
 		<script type='text/javascript' src='lib/node_modules/angular-resource/angular-resource.min.js'></script>
 		<script type='text/javascript' src='lib/node_modules/angular-jwt/dist/angular-jwt.min.js'></script>
 		<script type='text/javascript' src='lib/node_modules/angular-material/angular-material.min.js'></script>
-		<script type='text/javascript' src='lib/node_modules/satellizer/dist/satellizer.min.js'></script>
 		<script type='text/javascript' src='lib/node_modules/@uirouter/angularjs/release/angular-ui-router.min.js'></script>
+		
+		<!-- 3rd party includes -->
+		<script type='text/javascript' src='lib/node_modules/satellizer/dist/satellizer.min.js'></script>
 		<script type="text/javascript" src="lib/node_modules/sails.io.js/dist/sails.io.js"></script>
-		<script type='text/javascript' src='config.js'></script>
+		<!-- <script type="text/javascript" src="lib/node_modules/jquery/dist/jquery.min.js"></script> -->
+		<script type="text/javascript" src="lib/jquery-2.0.2.js"></script>
+		<script type="text/javascript" src="lib/flowchart/svg_class.js"></script>
+		<script type="text/javascript" src="lib/flowchart/mouse_capture_service.js"></script>
+		<script type="text/javascript" src="lib/flowchart/dragging_service.js"></script>
+		<script type="text/javascript" src="lib/flowchart/flowchart_viewmodel.js"></script>
+		<script type="text/javascript" src="lib/flowchart/flowchart_directive.js"></script>
+
+		<!-- App include -->		
+		<script type='text/javascript' src='config.js'></script>		
 		<script type='text/javascript' src='javascripts/app.js'></script>
 		<script type='text/javascript' src='javascripts/routes.js'></script>
 		<script type='text/javascript' src='javascripts/services.js'></script>

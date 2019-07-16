@@ -1,6 +1,6 @@
 CONFIG.BACKEND_HOST =  "http://"+ CONFIG.BACKEND_DOMAIN
 
-angular.module('oneboard', ['ngMaterial','ui.router','ngResource','angular-jwt','satellizer'])
+angular.module('oneboard', ['ngMaterial','ui.router','ngResource','angular-jwt','satellizer', 'flowChart'])
 
 .config(function($mdThemingProvider) {
     // Extend the red theme with a different color and make the contrast color black instead of white.
