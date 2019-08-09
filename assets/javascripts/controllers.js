@@ -79,14 +79,15 @@ angular.module('oneboard')
                 // $scope.embeds +=$scope.location.properties.embeds[i];
                 // }
                 $scope.embeds = $sce.trustAsHtml($scope.location.properties.embeds);
-                $scope.table = Array.matrix($scope.location.properties.rows, $scope.location.properties.cols, 0);
-                Equipment.query({ location: $stateParams.location }, function (res) {
+            $scope.table = Array.matrix($scope.location.properties.rows, $scope.location.properties.cols, 0);
+            Equipment.query({ isLocatedIn: $stateParams.location }, function (res) {
                     $scope.equipments = res;
                     for (var i = 0; i < $scope.equipments.length; i++) {
                         var equipment = $scope.equipments[i];
                         $scope.table[equipment.properties.row - 1][equipment.properties.col - 1] = { "equipment": $scope.equipments[i] }
                     };
                     // test
+                    /*
                     Sensor.query({ location: $stateParams.location }, function (res) {
                         $scope.sensors = res;
                         for (var i = 0; i < $scope.sensors.length; i++) {
@@ -98,13 +99,14 @@ angular.module('oneboard')
 
                         };
                         // console.log($scope.table)
-                    })
+                    })*/
                 });
 
                 // Group
-                EquipmentGroup.query({ location: $stateParams.location }, function (res) {
+                /*
+                EquipmentGroup.query({ location: $stateParams.location }, function(res){
                     $scope.equipment_groups = res;
-                })
+                })*/
             });
 
 
