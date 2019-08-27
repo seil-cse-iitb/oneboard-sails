@@ -46,6 +46,9 @@ angular.module('oneboard')
     // Return the browsers prompt function.
     return prompt;
   })
+  .factory('Point', function ($resource) {
+    return $resource(API_ROOT + 'point/:id', { id: '@id' });
+  })
   .factory('Sensor', function ($resource) {
     return $resource(API_ROOT + 'sensor/:id', { id: '@id' });
   })
@@ -53,18 +56,14 @@ angular.module('oneboard')
     return $resource(API_ROOT + 'location/:id', { id: '@id' });
   })
   .factory('Acl', function ($resource) {
-    return $resource(API_ROOT + 'acl/:id', { id: '@id' });
+    return $resource(API_ROOT + 'acl/:id', { id: '@id' }, {
+      has_access: {method: 'GET', params: {location:'@location'}, url: API_ROOT+'acl/has_access/:location'}
+    });
   })
   .factory('Equipment', function ($resource) {
     return $resource(API_ROOT + 'equipment/:id', { id: '@id' }, {
       //actions
       actuate: { method: 'POST', params: { id: '@id' }, url: API_ROOT + 'equipment/actuate/:id' }
-    });
-  })
-  .factory('EquipmentGroup', function ($resource) {
-    return $resource(API_ROOT + 'equipmentGroup/:id', { id: '@id' }, {
-      //actions
-      actuate: { method: 'POST', params: { id: '@id' }, url: API_ROOT + 'equipmentGroup/actuate/:id' }
     });
   })
   .factory('Alert', function ($resource) {
