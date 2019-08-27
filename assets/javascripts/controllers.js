@@ -116,7 +116,7 @@ angular.module('oneboard')
 
 })
 
-.controller('ExplorerCtrl', function($auth, $scope, $http, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, EquipmentGroup, Location, Sensor, Util) {
+.controller('ExplorerCtrl', function($auth, $scope, $http, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, Location, Point, Sensor, Util) {
         Auth.loginRequired($scope);
 
         $scope.logout = function() {
@@ -129,20 +129,19 @@ angular.module('oneboard')
                 // console.log(res);
                 $scope.location.children = res;
             })
-        } else {
-            Acl.query({ user_id: localStorage.getItem("user_id"), location: $stateParams.location || null }, function(res) {
-                $scope.is_admin = res[0].access_level == 1;
-                console.log($scope.is_admin);
+        }
+        else {
+            Acl.has_access({ user_id: localStorage.getItem("user_id"), location: $stateParams.location || null }, function (res) {
+                $scope.is_admin = res.access_level == 1;
+                console.log(res);
             })
             Location.get({ id: $stateParams.location }, function(res) {
                 $scope.location = res;
-                $scope.embeds = "";
-                // for(var i = 0; i < $scope.location.properties.embeds.length; i++){
-                // $scope.embeds.push($sce.trustAsHtml($scope.location.properties.embeds[i]))
-                // $scope.embeds +=$scope.location.properties.embeds[i];
-                // }
-                $scope.embeds = $sce.trustAsHtml($scope.location.properties.embeds);
+
+                    $scope.embeds = $sce.trustAsHtml($scope.location.properties.embeds);
+
                 $scope.table = Array.matrix($scope.location.properties.rows, $scope.location.properties.cols, 0);
+
                 Equipment.query({ isLocatedIn: $stateParams.location }, function(res) {
                     $scope.equipments = res;
                     for (var i = 0; i < $scope.equipments.length; i++) {
@@ -150,6 +149,7 @@ angular.module('oneboard')
                         $scope.table[equipment.properties.row - 1][equipment.properties.col - 1] = { "equipment": $scope.equipments[i] }
                     };
                     // test
+
                     /*
                     Sensor.query({ location: $stateParams.location }, function (res) {
                         $scope.sensors = res;
@@ -165,11 +165,6 @@ angular.module('oneboard')
                     })*/
                 });
 
-                // Group
-                /*
-                EquipmentGroup.query({ location: $stateParams.location }, function(res){
-                    $scope.equipment_groups = res;
-                })*/
             });
 
 
@@ -199,16 +194,6 @@ angular.module('oneboard')
                 });
             });
 
-            io.socket.get('/equipmentGroup/subscribe?location=' + $stateParams.location, function(data, jwr) {
-                io.socket.on('equipment_group_actuation', function(reading) {
-                    // console.log(reading)
-                    var equipment_group = Util.getBySerial($scope.equipment_groups, reading.serial)
-                    if (equipment_group != null) {
-                        equipment_group.properties.state = reading.state;
-                        $scope.$apply();
-                    }
-                });
-            });
         }
         $scope.navigate = function(location) {
             $state.go('explorer', { location: location });
