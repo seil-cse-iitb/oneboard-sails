@@ -1,103 +1,400 @@
 body {
-  padding: 50px;
-  font-family: 'Questrial', sans-serif;
-  font-size: medium;
-}
-h1, h2, h3, h4, h5, h6{
-  font-family: 'Roboto Slab', serif;  
-}
-a {
-  color: #00B7FF;
-}
-.vertical{
-  transform: rotate(90deg);
-}
-@keyframes rotate {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
-}
-fan .on #fan{
-  transform-origin: 50% 60%;
-  transform: translate(0, -27.4112);
-	animation: rotate 1s linear infinite ;
-}
-light .on #tube1, light .on #tube2, light-array .on #tube1, light-array .on #tube2 {
-	fill:#ffffff !important;
-}
-fan > md-card, light > md-card {
-  /* max-width:200px; */
-  max-height:550px;
-}
-ac .on #indicator{
-  fill: rgb(76,175,80) !important;
-}
-temperature .sensor.md-button.md-fab{
-  position: absolute;
-  overflow:visible;
-}
-temperature .reading{
-  font-size:24px;
-  font-weight: 400
-}
-badge{
-  font-size: 10px;
-  border-radius: 5px;
-  background-color: rgb(66,66,66);
-  color: white;
-  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
-}
-.controls-table td{
-  position: relative;
+    padding: 50px;
+    font-family: 'Questrial', sans-serif;
+    font-size: medium;
 }
 
-table md-card .md-actions, table md-card md-card-actions{
-  margin:0px;
-  margin-left:8px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Roboto Slab', serif;
 }
-md-card md-switch{
-  margin:1px;
+
+a {
+    color: #00B7FF;
 }
-.child .location-btn{
-  /* position: absolute; */
-  font-size:20px;
-  min-width:100px;
-  min-height:60px;
-  /* top:50px; */
+
+.vertical {
+    transform: rotate(90deg);
 }
-.indicator{
-  width:50px;
-  height:50px;
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
-.alert .md-list-item-text p{
-  color:black;
+
+fan .on #fan {
+    transform-origin: 50% 60%;
+    transform: translate(0, -27.4112);
+    animation: rotate 1s linear infinite;
 }
-.text-center{
-  text-align: center;
+
+light .on #tube1,
+light .on #tube2,
+light-array .on #tube1,
+light-array .on #tube2 {
+    fill: #ffffff !important;
+}
+
+fan>md-card,
+light>md-card {
+    /* max-width:200px; */
+    max-height: 550px;
+}
+
+ac .on #indicator {
+    fill: rgb(76, 175, 80) !important;
+}
+
+temperature .sensor.md-button.md-fab {
+    position: absolute;
+    overflow: visible;
+}
+
+temperature .reading {
+    font-size: 24px;
+    font-weight: 400
+}
+
+badge {
+    font-size: 10px;
+    border-radius: 5px;
+    background-color: rgb(66, 66, 66);
+    color: white;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 2px 1px -1px rgba(0, 0, 0, .12);
+}
+
+.controls-table td {
+    position: relative;
+}
+
+md-card {
+    padding: 15px;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22) !important;
+}
+
+table {
+    margin-bottom: 40px !important;
+}
+
+table md-card .md-actions,
+table md-card md-card-actions {
+    margin: 0px;
+    margin-left: 8px;
+}
+
+md-card md-switch {
+    margin: 1px;
+}
+
+.child .location-btn {
+    /* position: absolute; */
+    font-size: 20px;
+    min-width: 100px;
+    min-height: 60px;
+    /* top:50px; */
+}
+
+.indicator {
+    width: 50px;
+    height: 50px;
+}
+
+.alert .md-list-item-text p {
+    color: black;
+}
+
+.text-center {
+    text-align: center;
 }
 
 @keyframes raise_hell {
-  0% {background-color: rgb(244, 67, 54);}
-  50% {background-color: rgb(48,48,48);}
-  100% {background-color: rgb(244, 67, 54);}
-}
-.raise-hell{
-	animation: raise_hell 2s linear infinite ;
+    0% {
+        background-color: rgb(244, 67, 54);
+    }
+    50% {
+        background-color: rgb(48, 48, 48);
+    }
+    100% {
+        background-color: rgb(244, 67, 54);
+    }
 }
 
-.is-admin md-toolbar{
-  background-color: #673ab7;
+.raise-hell {
+    animation: raise_hell 2s linear infinite;
 }
-.child{
-  position: relative;
+
+.is-admin md-toolbar {
+    background-color: #673ab7;
 }
-.child .control-btn.md-mini.md-fab{
-  position: absolute;
-  visibility: hidden;
-  top:-20px;
-  right:-20px;
-  z-index: 2;
+
+.child {
+    position: relative;
 }
-.child:hover .control-btn.md-mini.md-fab{
-  color:#ffffff;
-  visibility: initial;
+
+.child .control-btn.md-mini.md-fab {
+    position: absolute;
+    visibility: hidden;
+    top: -20px;
+    right: -20px;
+    z-index: 2;
+}
+
+.child:hover .control-btn.md-mini.md-fab {
+    color: #ffffff;
+    visibility: initial;
+}
+
+
+/* ******************** flowchart ******************** */
+
+
+/*
+Generic reset.
+*/
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.test {
+    border: 5px red solid;
+    padding: 10;
+    margin: 10;
+    font-family: "Times New Roman";
+    font-style: italic;
+}
+
+
+/*
+Styles for nodes and connectors.
+*/
+
+.node-rect {
+    stroke: black;
+    stroke-width: 2;
+}
+
+.mouseover-node-rect {
+    stroke: black;
+    stroke-width: 4;
+}
+
+.selected-node-rect {
+    stroke: red;
+    stroke-width: 3;
+}
+
+.connector-circle {
+    fill: white;
+    stroke: black;
+    stroke-width: 2;
+}
+
+.mouseover-connector-circle {
+    fill: white;
+    stroke: black;
+    stroke-width: 3;
+}
+
+
+/*
+Style for connections.
+*/
+
+.connection {}
+
+.connection-line {
+    stroke: gray;
+    stroke-width: 4;
+    fill: transparent;
+}
+
+.mouseover-connection-line {
+    stroke: gray;
+    stroke-width: 6;
+    fill: transparent;
+}
+
+.selected-connection-line {
+    stroke: red;
+    stroke-width: 4;
+    fill: transparent;
+}
+
+.connection-endpoint {
+    fill: gray;
+}
+
+.selected-connection-endpoint {
+    fill: red;
+}
+
+.mouseover-connection-endpoint {
+    fill: gray;
+}
+
+.connection-name {
+    fill: black;
+}
+
+.selected-connection-name {
+    fill: red;
+}
+
+.mouseover-connection-name {
+    fill: gray;
+}
+
+
+/*
+Style for the connection being dragged out.
+*/
+
+.dragging-connection {
+    pointer-events: none;
+}
+
+.dragging-connection-line {
+    stroke: gray;
+    stroke-width: 3;
+    fill: transparent;
+}
+
+.dragging-connection-endpoint {
+    fill: gray;
+}
+
+
+/*
+The element (in this case the SVG element) that contains the draggable elements.
+*/
+
+.draggable-container {
+    border: solid 1px blue;
+}
+
+
+/*
+Drag selection rectangle.
+*/
+
+.drag-selection-rect {
+    stroke: blue;
+    stroke-width: 2;
+    fill: transparent;
+}
+
+
+/* ******************** end flowchart ******************** */
+
+.custom-social-proof {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    /* right: -360px !important; */
+    z-index: 9999999999999 !important;
+    font-family: 'Open Sans', sans-serif;
+}
+
+@media only screen and (max-width: 600px) {
+    .custom-social-proof {
+        display: none !important;
+    }
+}
+
+.custom-social-proof .custom-notification {
+    width: 250px;
+    border: 0;
+    text-align: left;
+    z-index: 99999;
+    box-sizing: border-box;
+    font-weight: 400;
+    border-radius: 6px;
+    box-shadow: 2px 2px 10px 2px rgba(11, 10, 10, 0.2);
+    /* background-color: rgb(76,175,80); */
+    background-color: rgb(76, 175, 80);
+    position: relative;
+    cursor: pointer;
+}
+
+.custom-social-proof .custom-notification .custom-notification-container {
+    display: flex !important;
+    align-items: center;
+    height: 35px;
+}
+
+.custom-social-proof .custom-notification .custom-notification-container .custom-notification-image-wrapper img {
+    max-height: 75px;
+    width: 90px;
+    overflow: hidden;
+    border-radius: 6px 0 0 6px;
+    object-fit: cover;
+}
+
+.custom-social-proof .custom-notification .custom-notification-container .custom-notification-content-wrapper {
+    margin: 0;
+    height: 100%;
+    color: rgb(255, 255, 255);
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 0 6px 6px 0;
+    flex: 1;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.custom-social-proof .custom-notification .custom-notification-container .custom-notification-content-wrapper .custom-notification-content {
+    font-family: inherit !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.custom-social-proof .custom-notification .custom-notification-container .custom-notification-content-wrapper .custom-notification-content small {
+    margin-top: 3px !important;
+    display: block !important;
+    font-size: 12px !important;
+    opacity: .8;
+}
+
+.custom-close {
+    position: absolute;
+    right: 20px;
+    top: -9px;
+    /* width: 32px;
+    height: 32px; */
+    opacity: 0.3;
+}
+
+.custom-close:hover {
+    opacity: 1;
+}
+
+.custom-close:before,
+.custom-close:after {
+    position: absolute;
+    left: 25px;
+    content: ' ';
+    height: 15px;
+    width: 2px;
+    background-color: #333;
+}
+
+.custom-close:before {
+    transform: rotate(45deg);
+}
+
+.custom-close:after {
+    transform: rotate(-45deg);
 }

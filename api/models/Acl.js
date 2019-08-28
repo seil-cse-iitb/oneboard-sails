@@ -39,5 +39,26 @@ module.exports = {
     },
   },
 
+  // functions
+  user_has_access: async function(user_id, location){
+    //return what permission a given user has for a given location. A user has the highest permission assigned to the closest ancestor
+    let acl;
+    acl = await Acl.findOne({user_id:user_id, location:location}).populate("location");
+    if (acl){
+      return acl.access_level;
+    }
+    var l = await Location.findOne({id:location}).populate("parents");
+    var min_perm = Number.MAX_SAFE_INTEGER;
+    for(var i in l.parents){
+      var parent = l.parents[i];
+      var al = await Acl.user_has_access(user_id, parent.id);
+      if(al && al<min_perm){
+        min_perm = al;
+      }
+    }
+    
+    return min_perm < Number.MAX_SAFE_INTEGER ? min_perm : null;
+  }
+
 };
 
