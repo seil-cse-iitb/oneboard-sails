@@ -1,14 +1,25 @@
 <md-toolbar ng-controller="ToolbarCtrl">
-  <div class="md-toolbar-tools">
-    <md-truncate> <a ui-sref="home"><img src="images/oneboard-logo-white-base.svg" width="50px" alt=""> <span style="position: relative; top: -17px">SEIL Oneboard</span></a></md-truncate>
+    <div class="md-toolbar-tools">
+        <md-truncate>
+            <a ui-sref="home"><img src="images/oneboard-logo-white-base.svg" width="50px" alt=""> <span style="position: relative; top: -17px">SEIL Oneboard</span></a>
+        </md-truncate>
 
-    <span flex></span>
-    <md-button aria-label="Logout" ng-click="logout()" ng-if="isLoggedIn">
-      Logout
-    </md-button>
-    <md-button aria-label="Login" ui-sref="login" ng-if="!isLoggedIn">
-      Login
-    </md-button>
-    
-  </div>
+        <span flex></span>
+        <!-- <md-button aria-label="Alert" ui-sref="alert" class="icon_button">
+            <i class="material-icons dp48">notifications</i>
+        </md-button> -->
+        <md-button aria-label="Logout" ui-sref="explorer" ng-if="isLoggedIn">
+            Dashboard
+        </md-button>
+        <md-button aria-label="Logout" ui-sref="alert" ng-if="isLoggedIn">
+            Alerts
+        </md-button>
+        <md-button aria-label="Logout" ng-click="logout()" ng-if="isLoggedIn">
+            Logout
+        </md-button>
+        <md-button aria-label="Login" ui-sref="login" ng-if="!isLoggedIn">
+            Login
+        </md-button>
+
+    </div>
 </md-toolbar>
