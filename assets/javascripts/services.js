@@ -7,10 +7,11 @@ angular.module('oneboard')
     this.loginRequired = function ($state) {
       console.log("login required")
       $http.get('auth/verify').then(function (res) {
-        localStorage.setItem('user_id', res.data.data.username);
+        localStorage.setItem('user', JSON.stringify(res.data.data));
        }, function () {
         console.log("go to login");
         localStorage.removeItem('satellizer_token');
+        localStorage.removeItem('user');
         $location.path('/login');
       })
     }
@@ -24,6 +25,16 @@ angular.module('oneboard')
       if (localStorage.getItem('satellizer_token'))
         return true;
       return false;
+    }
+    this.user = {
+      username: function(){
+        var user = JSON.parse(localStorage.getItem("user"));
+        return user.username;
+      },
+      is_admin: function(){
+        var user = JSON.parse(localStorage.getItem("user"));
+        return user.isSuperAdmin;
+      }
     }
   }])
   .service('Util', ['$http', '$location', function ($http, $location) {

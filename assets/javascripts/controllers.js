@@ -8,6 +8,7 @@ angular.module('oneboard')
         $scope.isLoggedIn = Auth.isLoggedIn();
         $scope.logout = function() {
             $window.localStorage.removeItem('satellizer_token');
+            $window.localStorage.removeItem('user');
             $location.path('/login');
         }
     })
@@ -16,10 +17,11 @@ angular.module('oneboard')
     // Auth.loginRequired();
     console.log(toastr)
 
-    $scope.logout = function() {
-        $window.localStorage.removeItem('satellizer_token');
-        $location.path('/login');
-    }
+    // $scope.logout = function() {
+    //     $window.localStorage.removeItem('satellizer_token');
+    //     $window.localStorage.removeItem('user');
+    //     $location.path('/login');
+    // }
     $scope.hell_raised = false;
     io.socket.get('/alert?resolved=false&sort=createdAt DESC&limit=10', function(resData) {
         console.log(resData);
@@ -116,13 +118,13 @@ angular.module('oneboard')
 
 })
 
-.controller('ExplorerCtrl', function($auth, $scope, $http, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, Location, Point, Sensor, Util) {
+.controller('ExplorerCtrl', function($auth, $scope, $http, $location, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, Location, Point, Sensor, Util) {
         Auth.loginRequired($scope);
-
-        $scope.logout = function() {
-            $window.localStorage.removeItem('satellizer_token');
-            $location.path('/');
-        }
+        $scope.is_admin = Auth.user.is_admin();
+        // $scope.logout = function() {
+        //     $window.localStorage.removeItem('satellizer_token');
+        //     $location.path('/');
+        // }
         $scope.location = {};
         if (!$stateParams.location) {
             Location.query(function(res) {
@@ -131,8 +133,8 @@ angular.module('oneboard')
             })
         }
         else {
-            Acl.has_access({ user_id: localStorage.getItem("user_id"), location: $stateParams.location || null }, function (res) {
-                $scope.is_admin = res.access_level == 1;
+            Acl.has_access({ user_id: Auth.user.username(), location: $stateParams.location || null }, function (res) {
+                $scope.is_admin = $scope.is_admin || res.access_level == 1;
                 console.log(res);
             })
             Location.get({ id: $stateParams.location }, function(res) {
@@ -210,10 +212,22 @@ angular.module('oneboard')
         }
 
         $scope.create_location = function(new_location) {
-            Location.save({ name: new_location.name, parents: [$stateParams.location] }, function(res) {
-                console.log(res)
-                $scope.location.children.push(res)
-            })
+            if($stateParams.location){
+                Location.save({ name: new_location.name, parents: [$stateParams.location] }, function(res) {
+                    console.log(res)
+                    $scope.location.children.push(res)
+                })
+            }
+            else{
+                Location.save({ name: new_location.name }, function(res) {
+                    console.log(res)
+                    $scope.location.children.push(res)
+                    Acl.save({user_id:Auth.user.username(), location:res.id, access_level:1}, function(res){
+                        console.log("Granted admin access to location");
+                    })
+                })
+            }
+            
         }
         $scope.remove_location = function(location_id) {
                 Location.remove({ id: location_id }, function(res) {
@@ -233,27 +247,31 @@ angular.module('oneboard')
 
 
     })
-    .controller('LoginCtrl', ['$scope', '$window', '$http', '$location', '$auth', 'Auth', function($scope, $window, $http, $location, $auth, Auth) {
-        Auth.logoutRequired();
-        $scope.login = function() {
-            $http.post('/auth/authenticate', $scope.user).then(function(response) {
-                $window.localStorage.setItem('satellizer_token', response.data.token);
+.controller('LoginCtrl', ['$scope', '$window', '$http', '$location', '$auth', 'Auth', function($scope, $window, $http, $location, $auth, Auth) {
+    Auth.logoutRequired();
+    $scope.login = function() {
+        $http.post('/auth/authenticate', $scope.user).then(function(response) {
+            $window.localStorage.setItem('satellizer_token', response.data.token);
+
+            $http.get('auth/verify').then(function (res) {
+                localStorage.setItem('user', JSON.stringify(res.data.data));
                 $location.path('/explorer');
-            }, function(response) {
+            })
+        }, function(response) {
+            alert(response.data.message);
+        });
+    }
+    $scope.authenticate = function(provider) {
+        $auth.authenticate(provider).then(function(response) {
+                // Signed in with IITBSSO.
+                $location.path('/explorer');
+            })
+            .catch(function(response) {
+                // Something went wrong.
                 alert(response.data.message);
             });
-        }
-        $scope.authenticate = function(provider) {
-            $auth.authenticate(provider).then(function(response) {
-                    // Signed in with IITBSSO.
-                    $location.path('/explorer');
-                })
-                .catch(function(response) {
-                    // Something went wrong.
-                    alert(response.data.message);
-                });
-        };
-    }])
+    };
+}])
 
 //
 // Application controller.
