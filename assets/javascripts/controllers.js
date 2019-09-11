@@ -28,8 +28,6 @@ angular.module('oneboard')
         $scope.alerts = resData;
         for (i in $scope.alerts) {
             // $scope.showActionToast($scope.alerts[i].title);
-            var toast = $scope.getToast($scope.alerts[i])
-                // toastr.refreshTimer(toast, 100000);
         }
         $scope.$apply();
         io.socket.on('alert', function(alert) {
@@ -37,7 +35,9 @@ angular.module('oneboard')
             switch (alert.verb) {
                 case "created":
                     $scope.alerts.unshift(alert.data);
-                    console.log(alert)
+                    var toast = $scope.getToast($scope.alerts[i])
+                        // toastr.refreshTimer(toast, 100000);
+                    console.log(alert, "Toast")
                     if (alert.data.level === "danger") {
                         $scope.raise_hell();
                     }
@@ -140,7 +140,7 @@ angular.module('oneboard')
             Location.get({ id: $stateParams.location }, function(res) {
                 $scope.location = res;
 
-                    $scope.embeds = $sce.trustAsHtml($scope.location.properties.embeds);
+                $scope.embeds = $sce.trustAsHtml($scope.location.properties.embeds);
 
                 $scope.table = Array.matrix($scope.location.properties.rows, $scope.location.properties.cols, 0);
 
@@ -272,6 +272,14 @@ angular.module('oneboard')
             });
     };
 }])
+
+.controller('AlertCtrl', function($scope, $http, Auth, $window, $location) {
+    $scope.isLoggedIn = Auth.isLoggedIn();
+    // $scope.logout = function() {
+    //     $window.localStorage.removeItem('satellizer_token');
+    //     $location.path('/login');
+    // }
+})
 
 //
 // Application controller.

@@ -1,0 +1,92 @@
+<div ng-include="'templates/toolbar.html'"></div>
+<div ng-cloak="" layout-gt-sm="row" layout="column" class="listdemoBasicUsage" layout-margin>
+
+    <!-- SUCCESS -->
+    <div flex-gt-sm="25" flex="">
+        <md-toolbar layout="row" class="md-hue-3" style="background-color: rgb(67,160,71)">
+            <div class="md-toolbar-tools">
+                <span>Success</span>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-list flex>
+                <md-list-item class="md-3-line alert" ng-repeat="alert in alerts | filter:{ level: 'success' }" ng-click="null" layout-margin layout-padding>
+
+                    <div class="md-list-item-text" layout="column">
+                        <h3>{{ alert.title }}</h3>
+                        <p>{{ alert.description }}</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+            <md-divider></md-divider>
+        </md-content>
+    </div>
+    <md-divider></md-divider>
+
+    <!-- DANGER -->
+    <div flex-gt-sm=" 25 " flex="">
+        <md-toolbar layout="row" class="md-hue-3" style="background-color: rgb(244, 68, 62)">
+            <div class="md-toolbar-tools ">
+                <span>Danger</span>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-list flex>
+                <md-list-item class="md-3-line alert " ng-repeat="alert in alerts | filter:{ level: 'danger' }" ng-click="null " layout-margin layout-padding>
+
+                    <div class="md-list-item-text " layout="column ">
+                        <h3>{{ alert.title }}</h3>
+                        <p>{{ alert.description }}</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+            <md-divider></md-divider>
+        </md-content>
+    </div>
+    <md-divider></md-divider>
+
+    <!-- INFO -->
+    <div flex-gt-sm="25 " flex=" ">
+        <md-toolbar layout="row " class="md-hue-3 " style="background-color: rgb(100,181,246)">
+            <div class="md-toolbar-tools ">
+                <span>INFO</span>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-list flex>
+                <md-list-item class="md-3-line alert " ng-repeat="alert in alerts | filter:{ level: 'info' } " ng-click="null " layout-margin layout-padding>
+
+                    <div class="md-list-item-text " layout="column ">
+                        <h3>{{ alert.title }}</h3>
+                        <p>{{ alert.description }}</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+            <md-divider></md-divider>
+        </md-content>
+    </div>
+    <md-divider></md-divider>
+
+    <!-- WARN -->
+    <div flex-gt-sm="25 " flex=" ">
+        <md-toolbar layout="row " class="md-hue-3 " style="background-color: rgb(199, 146, 46)">
+            <div class="md-toolbar-tools ">
+                <span>WARN</span>
+            </div>
+        </md-toolbar>
+        <md-content>
+            <md-list flex>
+                <md-list-item class="md-3-line alert " ng-repeat="alert in alerts | filter:{ level: 'warn' } " ng-click="null " layout-margin layout-padding>
+
+                    <div class="md-list-item-text " layout="column ">
+                        <h3>{{ alert.title }}</h3>
+                        <p>{{ alert.description }}</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+            <md-divider></md-divider>
+        </md-content>
+    </div>
+    <md-divider></md-divider>
+</div>
+<md-divider></md-divider>
