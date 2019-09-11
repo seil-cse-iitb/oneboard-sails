@@ -4,12 +4,13 @@ angular.module('oneboard')
     controller: function($scope, $element, $attrs, Equipment){
         var ctrl = this;
         ctrl.fan.properties.state=ctrl.fan.properties.state||false;
-        $scope.switch = function(equipment){
+        $scope.switch = ctrl.switch ? ctrl.switch : function(equipment){
             Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
         }
     },
     bindings: {
-        fan: '<'
+        fan: '<',
+        switch: '<'
     }
 })
 .component('light', {
@@ -17,12 +18,13 @@ angular.module('oneboard')
     controller: function($scope, $element, $attrs, Equipment){
         var ctrl = this;
         ctrl.light.properties.state=ctrl.light.properties.state||false;
-        $scope.switch = function(equipment){
+        $scope.switch = ctrl.switch ? ctrl.switch : function(equipment){
             Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
         }
     },
     bindings: {
-        light: '<'
+        light: '<',
+        switch: '<'
     }
 })
 .component('lightArray', {
@@ -35,12 +37,13 @@ angular.module('oneboard')
                 return index;
             });
         }
-        $scope.switch = function(equipment){
+        $scope.switch = ctrl.switch ? ctrl.switch : function(equipment){
             Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
         }
     },
     bindings: {
-        lightArray: '<'
+        lightArray: '<',
+        switch: '<'
     }
 })
 .component('ac', {
@@ -48,7 +51,7 @@ angular.module('oneboard')
     controller: function($scope, $element, $attrs, Equipment){
         var ctrl = this;
         ctrl.ac.properties.state.on=ctrl.ac.properties.state.on||false;
-        $scope.switch = function(equipment){
+        $scope.switch = ctrl.switch ? ctrl.switch : function(equipment){
             var state = equipment.properties.state;
             state.on = !state.on;
             if(state.on){
@@ -58,7 +61,7 @@ angular.module('oneboard')
                 Equipment.actuate({id:equipment.id},{msg:"T00", state:state});
             }
         }
-        $scope.change_temp = function(equipment, new_temp){
+        $scope.change_temp = ctrl.changeTemp ? ctrl.changeTemp : function(equipment, new_temp){
             if (new_temp<18 || new_temp>28){
                 return ;
             }
@@ -69,7 +72,9 @@ angular.module('oneboard')
         }
     },
     bindings: {
-        ac: '<'
+        ac: '<',
+        switch: '<',
+        changeTemp: '<' //binding has to be camel case while directive property has to be kebab case.
     }
 })
 

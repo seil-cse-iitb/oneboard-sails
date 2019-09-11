@@ -537,7 +537,47 @@ angular.module('oneboard')
         console.log(start, end);
     }
     $scope.chartViewModel = new flowchart.ChartViewModel(chartDataModel, callback);
-}]);
+}])
+
+
+.controller('PersonalizeCtrl', function($auth, $scope, $http, $location, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, Location, Point, Sensor, Util) {
+    Auth.loginRequired($scope);
+    $scope.is_admin = Auth.user.is_admin();
+
+    if (!$stateParams.location) {
+        $state.go('explorer');
+    }
+    else {
+        Acl.has_access({ user_id: Auth.user.username(), location: $stateParams.location || null }, function (res) {
+            $scope.is_admin = $scope.is_admin || res.access_level == 1;
+            if (!$scope.is_admin) {
+                $state.go('explorer');
+            }
+        })
+        Location.get({ id: $stateParams.location }, function(res) {
+            $scope.location = res;
+            $scope.table = Array.matrix($scope.location.properties.rows, $scope.location.properties.cols, 0);
+
+            Equipment.query({ isLocatedIn: $stateParams.location }, function(res) {
+                $scope.equipments = res;
+                for (var i = 0; i < $scope.equipments.length; i++) {
+                    var equipment = $scope.equipments[i];
+                    $scope.table[equipment.properties.row - 1][equipment.properties.col - 1] = { "equipment": $scope.equipments[i] }
+                };
+                console.log($scope.table)
+            });
+        });
+
+    }
+    $scope.callbacks = {
+        switch: function(equipment){
+            console.log("lets save this preferences");
+        },
+        change_temp:function(equipment, temp){
+            console.log("new temp "+temp);
+        }
+    }
+})
 
 Array.matrix = function(numrows, numcols, initial) {
     var arr = [];
@@ -551,13 +591,8 @@ Array.matrix = function(numrows, numcols, initial) {
     return arr;
 }
 
-
-// setInterval(function() { $(".custom-social-proof").stop().slideToggle('slow'); }, 5000);
-// $(".custom-close").click(function() {
-//     $(".custom-social-proof").stop().slideToggle('slow');
-// });
-
 $(".custom-close").click(function() {
 
     $(".custom-notification").slideToggle('slow');
 });
+

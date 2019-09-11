@@ -29,10 +29,18 @@ var flowchartState = {
     controller: 'FlowchartCtrl'
 }
 
+var personalizeState = {
+    name: 'personalize',
+    url: '/personalize?location',
+    templateUrl: 'templates/personalize.html',
+    controller: 'PersonalizeCtrl'
+}
+
 $stateProvider.state(homeState);
 $stateProvider.state(explorerState);
 $stateProvider.state(loginState);
 $stateProvider.state(flowchartState);
+$stateProvider.state(personalizeState);
 $urlRouterProvider.otherwise('/');
 
 });

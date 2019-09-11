@@ -31,7 +31,8 @@
         <md-divider></md-divider>
         <div layout layout-padding>
             <span flex></span>
-            <md-switch ng-model="editor_mode" aria-label="Switch" ng-show="is_admin"><small>Editor mode</small>
+                <md-switch ng-model="editor_mode" aria-label="Switch" ng-show="is_admin"><small>Editor mode</small>
+                <md-button ui-sref="personalize({location:location.id})">Personalize</md-button>
             </md-switch>
         </div>
         <section layout flex="100" flex-gt-sm="80" flex-offset-gt-sm="10" layout-align="start start" layout-wrap ng-if="location.children && location.children.length>0">
