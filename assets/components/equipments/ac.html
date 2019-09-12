@@ -1,19 +1,31 @@
 <md-card>
     <md-card-header>
         <md-card-header-text layout>
-        <md-switch ng-model="$ctrl.ac.properties.state.on" aria-label="Switch" ng-click="switch($ctrl.ac)" flex="50">{{$ctrl.ac.name}}</md-switch>
-        <div flex="50" ng-show="$ctrl.ac.properties.state.temperature">
-            <md-button class="md-icon-button" aria-label="Decrease temperature" ng-disabled="!$ctrl.ac.properties.state.on" ng-click="change_temp($ctrl.ac, $ctrl.ac.properties.state.temperature-1)"><md-icon class="material-icons" >remove</md-icon></md-button>
-            <span class="md-icon-button">{{$ctrl.ac.properties.state.temperature}}</span>
-            <md-button class="md-icon-button" aria-label="Increase temperature" ng-disabled="!$ctrl.ac.properties.state.on" ng-click="change_temp($ctrl.ac, $ctrl.ac.properties.state.temperature+1)"><md-icon class="material-icons" >add</md-icon></md-button>  
-        </div>
+            <md-switch ng-model="$ctrl.ac.properties.state.on" aria-label="Switch" ng-click="switch($ctrl.ac)"
+                flex="50">{{$ctrl.ac.name}}</md-switch>
+            <div flex="50" ng-show="$ctrl.ac.properties.state.temperature">
+                <md-button class="md-icon-button" aria-label="Decrease temperature"
+                    ng-disabled="!$ctrl.ac.properties.state.on"
+                    ng-click="change_temp($ctrl.ac, $ctrl.ac.properties.state.temperature-1)">
+                    <md-icon class="material-icons">remove</md-icon>
+                </md-button>
+                <span class="md-icon-button">{{$ctrl.ac.properties.state.temperature}}</span>
+                <md-button class="md-icon-button" aria-label="Increase temperature"
+                    ng-disabled="!$ctrl.ac.properties.state.on"
+                    ng-click="change_temp($ctrl.ac, $ctrl.ac.properties.state.temperature+1)">
+                    <md-icon class="material-icons">add</md-icon>
+                </md-button>
+            </div>
         </md-card-header-text>
     </md-card-header>
-    <div ng-include="'images/ac.svg'" layout layout-align="center start" hide-xs hide-sm class="ac" ng-class="{'on':$ctrl.ac.properties.state.on, 'vertical':$ctrl.ac.properties.orientation=='vertical'}"></div>
-    <span hide-gt-sm ng-show="$ctrl.ac.properties.state.on" class="ac" layout layout-padding layout-align="center start">
+    <div ng-include="'images/ac.svg'" layout layout-align="center start" hide-xs hide-sm class="ac"
+        ng-class="{'on':$ctrl.ac.properties.state.on, 'vertical':$ctrl.ac.properties.orientation=='vertical'}"></div>
+    <span hide-gt-sm ng-show="$ctrl.ac.properties.state.on" class="ac" layout layout-padding
+        layout-align="center start">
         <i class="material-icons" id="ac" style="color:green">ac_unit</i>
     </span>
-    <span hide-gt-sm ng-hide="$ctrl.ac.properties.state.on" class="ac" layout layout-padding layout-align="center start">
+    <span hide-gt-sm ng-hide="$ctrl.ac.properties.state.on" class="ac" layout layout-padding
+        layout-align="center start">
         <i class="material-icons" id="ac">ac_unit</i>
     </span>
     <!-- <md-card-actions layout="column" layout-align="start">

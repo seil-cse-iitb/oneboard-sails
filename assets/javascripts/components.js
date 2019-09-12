@@ -5,7 +5,9 @@ angular.module('oneboard')
         var ctrl = this;
         ctrl.fan.properties.state=ctrl.fan.properties.state||false;
         $scope.switch = ctrl.switch ? ctrl.switch : function(equipment){
-            Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
+            var state = equipment.properties.state;
+            state.on = !state.on;
+            Equipment.actuate({id:equipment.id},{msg:"S"+Number(state.on), state:state});
         }
     },
     bindings: {
@@ -19,7 +21,9 @@ angular.module('oneboard')
         var ctrl = this;
         ctrl.light.properties.state=ctrl.light.properties.state||false;
         $scope.switch = ctrl.switch ? ctrl.switch : function(equipment){
-            Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
+            var state = equipment.properties.state;
+            state.on = !state.on;
+            Equipment.actuate({id:equipment.id},{msg:"S"+Number(state.on), state:state});
         }
     },
     bindings: {
@@ -31,14 +35,16 @@ angular.module('oneboard')
     templateUrl: 'components/equipments/light-array.html',
     controller: function($scope, $element, $attrs, $http, Equipment){
         var ctrl = this;
-        ctrl.lightArray.properties.state=ctrl.lightArray.properties.state||false;
+        ctrl.lightArray.properties.state=ctrl.lightArray.properties.state.on||false;
         $scope.range = function(count) {
             return Array.apply(0, Array(+count)).map(function(value,index){
                 return index;
             });
         }
         $scope.switch = ctrl.switch ? ctrl.switch : function(equipment){
-            Equipment.actuate({id:equipment.id},{msg:"S"+Number(!equipment.properties.state), state:!equipment.properties.state});
+            var state = equipment.properties.state;
+            state.on = !state.on;
+            Equipment.actuate({id:equipment.id},{msg:"S"+Number(state.on), state:state});
         }
     },
     bindings: {
