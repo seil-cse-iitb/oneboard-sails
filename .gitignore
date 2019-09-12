@@ -133,3 +133,4 @@ lib-cov
 location-heirarchy
 *.tar.gz
 seeds.js
+assets/config.js
