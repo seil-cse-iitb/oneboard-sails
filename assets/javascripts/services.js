@@ -31,6 +31,10 @@ angular.module('oneboard')
         var user = JSON.parse(localStorage.getItem("user"));
         return user.username;
       },
+      name: function(){
+        var user = JSON.parse(localStorage.getItem("user"));
+        return user.name;
+      },
       is_admin: function(){
         var user = JSON.parse(localStorage.getItem("user"));
         return user.isSuperAdmin;

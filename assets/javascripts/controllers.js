@@ -572,17 +572,39 @@ angular.module('oneboard')
                     var equipment = $scope.equipments[i];
                     $scope.table[equipment.properties.row - 1][equipment.properties.col - 1] = { "equipment": $scope.equipments[i] }
                 };
-                console.log($scope.table)
+                // console.log($scope.table)
             });
         });
 
     }
+    $scope.save = function(){
+        console.log($scope.equipments);
+        var user = {
+            username:Auth.user.username(),
+            name:Auth.user.name()
+        }
+        var equipments = [];
+        for(var i=0; i<$scope.equipments.length; i++){
+            if($scope.equipments[i].properties.state.on){
+                equipments.push($scope.equipments[i]);
+            }
+        }
+        console.log(equipments);
+        $http.post(CONFIG.muRon.host+":"+CONFIG.muRon.port+"/api/personalize",{user:user, location:{id:$stateParams.location},preferences:equipments},function(res){
+            alert("Preferences saved");
+        },function(res){
+            alert("Oops! Something went wrong");
+        });
+    }
     $scope.callbacks = {
         switch: function(equipment){
-            console.log("lets save this preferences");
+            console.log(equipment);
         },
         change_temp:function(equipment, temp){
-            console.log("new temp "+temp);
+            if (temp<16 || temp>30){
+                return ;
+            }
+            equipment.properties.state.temperature = temp;
         }
     }
 })
