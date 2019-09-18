@@ -7,7 +7,7 @@ angular.module('oneboard')
         $scope.switch = ctrl.switch ? ctrl.switch : function(equipment){
             var state = equipment.properties.state;
             state.on = !state.on;
-            Equipment.actuate({id:equipment.id},{msg:"S"+Number(state.on), state:state});
+            Equipment.actuate({id:equipment.id},{msg:"R"+Number(state.on), state:state});
         }
     },
     bindings: {

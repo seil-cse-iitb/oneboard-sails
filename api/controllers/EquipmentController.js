@@ -18,15 +18,15 @@ module.exports = {
     equipment = await Equipment.findOne({ id: req.params.id }).populate("isLocatedIn");
     location = equipment.isLocatedIn;
     // Look for the passed in path on the filesystem
-    var mqtt_topic = 'actuation/' + location.id + "/" + equipment.serial + "/";
+    var mqtt_topic = 'actuate/' + location.id + "/" + equipment.serial ;
     var mqtt_msg = req.body.msg;
     var mqtt_broker = location.properties.mqtt_broker_uri ? location.properties.mqtt_broker_uri : sails.config.mqtt.broker
     // console.log(mqtt_broker);
-    var client = mqtt.connect(mqtt_broker);
+    var client = mqtt.connect(mqtt_broker, {username:location.properties.mqtt_broker_username, password:location.properties.mqtt_broker_password});
 
     client.on('connect', function () {
-      // console.log(mqtt_topic);
-      // console.log(mqtt_msg);
+      console.log(mqtt_topic);
+      console.log(mqtt_msg);
       client.publish(mqtt_topic, mqtt_msg);
       client.end();
       res.json({ "message": "Message sent successfully" });
