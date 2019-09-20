@@ -398,3 +398,8 @@ Drag selection rectangle.
 .custom-close:after {
     transform: rotate(-45deg);
 }
+
+md-radio-group {
+    display: flex !important;
+    justify-content: space-evenly !important;
+}

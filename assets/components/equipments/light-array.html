@@ -2,15 +2,16 @@
     <md-card-header>
         <md-card-header-text>
             <!-- <span class="md-title">{{$ctrl.lightArray.name}}</span> -->
-        <md-switch ng-model="$ctrl.lightArray.properties.state" aria-label="Switch" ng-click="switch($ctrl.lightArray)">{{$ctrl.lightArray.name}}</md-switch>
+            <md-switch ng-model="$ctrl.lightArray.properties.state" aria-label="Switch" ng-click="switch($ctrl.lightArray)">{{$ctrl.lightArray.name}}</md-switch>
+            <div ng-include="'components/equipments/priority.html'"></div>
 
         </md-card-header-text>
     </md-card-header>
     <div layout layout-align="center start" flex="100" ng-if="$ctrl.lightArray.properties.orientation=='horizontal'">
 
-        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" ng-include="'images/light.svg'" layout layout-align="center start" flex="30" hide-xs hide-sm class="light" ng-class="{'on':$ctrl.lightArray.properties.state}" ></span>
-        
-        
+        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" ng-include="'images/light.svg'" layout layout-align="center start" flex="30" hide-xs hide-sm class="light" ng-class="{'on':$ctrl.lightArray.properties.state}"></span>
+
+
         <!-- for mobile browsers -->
         <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" layout layout-align="center start" layout-padding flex="30" hide-gt-md class="light" ng-show="$ctrl.lightArray.properties.state">
                 <i class="material-icons">brightness_high</i>
@@ -22,9 +23,9 @@
     </div>
     <div layout='column' layout-align="start center" flex="100" ng-if="$ctrl.lightArray.properties.orientation=='vertical'">
 
-        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" ng-include="'images/light_vertical.svg'" layout layout-align="center start" flex="30" hide-xs hide-sm class="light " ng-class="{'on':$ctrl.lightArray.properties.state}" ></span>
-        
-        
+        <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" ng-include="'images/light_vertical.svg'" layout layout-align="center start" flex="30" hide-xs hide-sm class="light " ng-class="{'on':$ctrl.lightArray.properties.state}"></span>
+
+
         <!-- for mobile browsers -->
         <span ng-repeat="i in range($ctrl.lightArray.properties.multiplicity)" layout layout-align="center start" layout-padding flex="30" hide-gt-md class="light" ng-show="$ctrl.lightArray.properties.state">
                 <i class="material-icons">brightness_high</i>
