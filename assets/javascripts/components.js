@@ -35,7 +35,7 @@ angular.module('oneboard')
     templateUrl: 'components/equipments/light-array.html',
     controller: function($scope, $element, $attrs, $http, Equipment){
         var ctrl = this;
-        ctrl.lightArray.properties.state=ctrl.lightArray.properties.state.on||false;
+        ctrl.lightArray.properties.state.on=ctrl.lightArray.properties.state.on||false;
         $scope.range = function(count) {
             return Array.apply(0, Array(+count)).map(function(value,index){
                 return index;

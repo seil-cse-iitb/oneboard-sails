@@ -590,7 +590,7 @@ angular.module('oneboard')
             }
         }
         console.log(equipments);
-        $http.post(CONFIG.muRon.host+":"+CONFIG.muRon.port+"/api/personalize",{user:user, location:{id:$stateParams.location},preferences:equipments},function(res){
+        $http.post(CONFIG.muRon.host+":"+CONFIG.muRon.port+"/api/personalize",{user:user, location:{id:$stateParams.location},preferences:equipments}).then(function(res){
             alert("Preferences saved");
         },function(res){
             alert("Oops! Something went wrong");
