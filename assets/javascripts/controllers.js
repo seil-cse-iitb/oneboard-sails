@@ -570,6 +570,7 @@ angular.module('oneboard')
                 $scope.equipments = res;
                 for (var i = 0; i < $scope.equipments.length; i++) {
                     var equipment = $scope.equipments[i];
+                    equipment.properties.state.on = false;
                     $scope.table[equipment.properties.row - 1][equipment.properties.col - 1] = { "equipment": $scope.equipments[i] }
                 };
                 // console.log($scope.table)

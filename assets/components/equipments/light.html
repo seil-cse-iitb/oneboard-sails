@@ -8,5 +8,5 @@
         </md-card-header-text>
     </md-card-header>
     <div ng-include="'images/light.svg'" layout layout-align="center start" class="light"
-        ng-class="{'on':$ctrl.light.properties.state, 'vertical':$ctrl.light.properties.orientation=='vertical'}"></div>
+        ng-class="{'on':$ctrl.light.properties.state.on, 'vertical':$ctrl.light.properties.orientation=='vertical'}"></div>
 </md-card>
