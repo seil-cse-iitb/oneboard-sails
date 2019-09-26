@@ -12,7 +12,7 @@ module.exports = {
         var user = await User.findOne({emailAddress:req.body.username});
         if (bcrypt.compareSync(req.body.password, user.password)){
             var token = jwt.sign({
-                data: {username:user.emailAddress, isSuperAdmin:user.isSuperAdmin}
+                data: {username:user.emailAddress, isSuperAdmin:user.isSuperAdmin, name: user.fullName}
             }, sails.config.session.secret, { expiresIn: '365d' });
 
             // return the information including token as JSON
