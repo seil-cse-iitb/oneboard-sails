@@ -1,0 +1,35 @@
+<section layout="row" flex class="is-admin">
+
+    <md-content flex="100" ng-class="{'raise-hell':hell_raised}">
+        <div ng-include="'templates/toolbar.html'"></div>
+
+        <md-divider></md-divider>
+        <div layout layout-padding>
+            <span flex></span>
+            <md-button ui-sref="explorer({location:location.id})">Explorer</md-button>
+            <md-button class="md-primary md-raised" ng-click="save()">Save</md-button>
+        </div>
+
+        <section layout layout-align="start" layout-align-gt-xs="space-around" flex="100" flex-gt-sm="80"
+            flex-offset-gt-sm="10" layout-wrap ng-if="table && table.length>0">
+            <md-subheader flex="100">Equipment Controls</md-subheader>
+            <table flex="100" flex-gt-sm="80" class="controls-table">
+                <tr ng-repeat="row in table">
+                    <td ng-repeat="item in row  track by $index" colspan="{{item.equipment.properties.colspan}}"
+                        rowspan="{{item.equipment.properties.rowspan}}">
+                        <light ng-if="item.equipment.type=='light'" light="item.equipment" switch="callbacks.switch">
+                        </light>
+                        <light-array ng-if="item.equipment.type=='light_array'" light-array="item.equipment"
+                            switch="callbacks.switch">
+                        </light-array>
+                        <fan ng-if="item.equipment.type=='fan'" fan="item.equipment" switch="callbacks.switch"></fan>
+                        <ac ng-if="item.equipment.type=='ac'" ac="item.equipment" switch="callbacks.switch" change-temp="callbacks.change_temp"></ac>
+                        <temperature ng-if="item.sensor.type=='temperature'" temperature="item.sensor"></temperature>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+    </md-content>
+
+</section>

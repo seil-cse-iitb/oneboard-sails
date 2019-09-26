@@ -18,24 +18,25 @@ module.exports = {
     equipment = await Equipment.findOne({ id: req.params.id }).populate("isLocatedIn");
     location = equipment.isLocatedIn;
     // Look for the passed in path on the filesystem
-      var mqtt_topic = 'actuation/' + location.id + "/" + equipment.serial + "/";
-      var mqtt_msg = req.body.msg;
-      // console.log(location.properties.mqtt_broker_uri);
-      var client = mqtt.connect(location.properties.mqtt_broker_uri);
+    var mqtt_topic = 'actuate/' + location.id + "/" + equipment.serial ;
+    var mqtt_msg = req.body.msg;
+    var mqtt_broker = location.properties.mqtt_broker_uri ? location.properties.mqtt_broker_uri : sails.config.mqtt.broker
+    // console.log(mqtt_broker);
+    var client = mqtt.connect(mqtt_broker, {username:location.properties.mqtt_broker_username, password:location.properties.mqtt_broker_password});
 
-      client.on('connect', function () {
-        console.log(mqtt_topic);
-        console.log(mqtt_msg);
-        client.publish(mqtt_topic, mqtt_msg);
-        client.end();
-        res.json({ "message": "Message sent successfully" });
-        // store the new state info into database
-        equipment.properties.state = req.body.state;
-        Equipment.update({ id: equipment.id }).set({ properties: equipment.properties }).exec(function (err, result) {
+    client.on('connect', function () {
+      console.log(mqtt_topic);
+      console.log(mqtt_msg);
+      client.publish(mqtt_topic, mqtt_msg);
+      client.end();
+      res.json({ "message": "Message sent successfully" });
+      // store the new state info into database
+      equipment.properties.state = req.body.state;
+      Equipment.update({ id: equipment.id }).set({ properties: equipment.properties }).exec(function (err, result) {
 
-          sails.sockets.broadcast(location.id, 'equipment_actuation', { 'serial': equipment.serial, 'state': equipment.properties.state }); //broadcast the actuation event to front end using socket
-        });
+        sails.sockets.broadcast(location.id, 'equipment_actuation', { 'serial': equipment.serial, 'state': equipment.properties.state }); //broadcast the actuation event to front end using socket
       });
+    });
 
   },
 

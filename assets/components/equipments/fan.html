@@ -2,12 +2,14 @@
     <md-card-header>
         <md-card-header-text>
             <!-- <span class="md-title"></span> -->
-        <md-switch ng-model="$ctrl.fan.properties.state" aria-label="Switch"  ng-click="switch($ctrl.fan)">{{$ctrl.fan.name}}</md-switch>
+            <md-switch ng-model="$ctrl.fan.properties.state.on" aria-label="Switch" ng-click="switch($ctrl.fan)">
+                {{$ctrl.fan.name}}</md-switch>
 
         </md-card-header-text>
     </md-card-header>
-    <div ng-include="'images/fan.svg'" class="light" layout layout-align="center start" hide-xs hide-sm ng-class="{'on':$ctrl.fan.properties.state}" class="{{$ctrl.fan.properties.oreintation}}"></div>
-    <span hide-gt-sm ng-class="{'on':$ctrl.fan.properties.state}" layout layout-padding layout-align="center start">
+    <div ng-include="'images/fan.svg'" class="light" layout layout-align="center start" hide-xs hide-sm
+        ng-class="{'on':$ctrl.fan.properties.state.on}" class="{{$ctrl.fan.properties.oreintation}}"></div>
+    <span hide-gt-sm ng-class="{'on':$ctrl.fan.properties.state.on}" layout layout-padding layout-align="center start">
         <i class="material-icons" id="fan">device_hub</i>
     </span>
     <!-- <md-card-actions layout="column" layout-align="start">

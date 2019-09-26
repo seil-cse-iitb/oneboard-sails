@@ -1,6 +1,5 @@
 module.exports.mqtt = {
 	_hookTimeout: 20000,
-	// broker : 'mqtt://mqtt.seil.cse.iitb.ac.in',
 	connect:{
 		port : 1883	,
 		clientId : 'oneboard_hook_mqtt_client',
