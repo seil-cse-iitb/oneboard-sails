@@ -26,8 +26,6 @@ angular.module('oneboard')
         $scope.alerts = resData;
         for (i in $scope.alerts) {
             // $scope.showActionToast($scope.alerts[i].title);
-            var toast = $scope.getToast($scope.alerts[i])
-                // toastr.refreshTimer(toast, 100000);
         }
         $scope.$apply();
         io.socket.on('alert', function(alert) {
@@ -35,7 +33,9 @@ angular.module('oneboard')
             switch (alert.verb) {
                 case "created":
                     $scope.alerts.unshift(alert.data);
-                    console.log(alert)
+                    var toast = $scope.getToast($scope.alerts[i])
+                        // toastr.refreshTimer(toast, 100000);
+                    console.log(alert, "Toast")
                     if (alert.data.level === "danger") {
                         $scope.raise_hell();
                     }
@@ -117,6 +117,123 @@ angular.module('oneboard')
 })
 
 .controller('ExplorerCtrl', function($auth, $scope, $http, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, Location, Point, Sensor, Util) {
+    Auth.loginRequired($scope);
+
+    $scope.logout = function() {
+        $window.localStorage.removeItem('satellizer_token');
+        $location.path('/');
+    }
+    $scope.location = {};
+    if (!$stateParams.location) {
+        Location.query(function(res) {
+            // console.log(res);
+            $scope.location.children = res;
+        })
+    } else {
+        Acl.has_access({ user_id: localStorage.getItem("user_id"), location: $stateParams.location || null }, function(res) {
+            $scope.is_admin = res.access_level == 1;
+            console.log(res);
+        })
+        Location.get({ id: $stateParams.location }, function(res) {
+            $scope.location = res;
+
+            $scope.embeds = $sce.trustAsHtml($scope.location.properties.embeds);
+
+            $scope.table = Array.matrix($scope.location.properties.rows, $scope.location.properties.cols, 0);
+
+            Equipment.query({ isLocatedIn: $stateParams.location }, function(res) {
+                $scope.equipments = res;
+                for (var i = 0; i < $scope.equipments.length; i++) {
+                    var equipment = $scope.equipments[i];
+                    $scope.table[equipment.properties.row - 1][equipment.properties.col - 1] = { "equipment": $scope.equipments[i] }
+                };
+                // test
+
+                /*
+                Sensor.query({ location: $stateParams.location }, function (res) {
+                    $scope.sensors = res;
+                    for (var i = 0; i < $scope.sensors.length; i++) {
+                        var sensor = $scope.sensors[i];
+                        if ($scope.table[sensor.properties.row - 1][sensor.properties.col - 1])
+                            $scope.table[sensor.properties.row - 1][sensor.properties.col - 1].sensor = $scope.sensors[i];
+                        else
+                            $scope.table[sensor.properties.row - 1][sensor.properties.col - 1] = { "sensor": $scope.sensors[i] }
+
+                    };
+                    // console.log($scope.table)
+                })*/
+            });
+
+        });
+
+
+        io.socket.get('/sensor/subscribe?location=' + $stateParams.location, function(data, jwr) {
+
+            io.socket.on('sensor_data', function(reading) {
+                // console.log(reading)
+                var sensor = Util.getBySerial($scope.sensors, reading.serial)
+                if (sensor != null) {
+                    sensor.value = reading.temperature;
+                    var hue = 250 - (reading.temperature - 16) * (250 / 16)
+                    sensor.properties.style['background-color'] = "hsl(" + hue + ",100%,50%)"
+                    $scope.$apply();
+                }
+            });
+
+        });
+
+        io.socket.get('/equipment/subscribe?location=' + $stateParams.location, function(data, jwr) {
+            io.socket.on('equipment_actuation', function(reading) {
+                // console.log(reading)
+                var equipment = Util.getBySerial($scope.equipments, reading.serial)
+                if (equipment != null) {
+                    equipment.properties.state = reading.state;
+                    $scope.$apply();
+                }
+            });
+        });
+
+    }
+    $scope.navigate = function(location) {
+        $state.go('explorer', { location: location });
+    }
+    $scope.navigateTrail = function(t) {
+        var location = "/";
+        for (var i in $scope.trail) {
+            location += $scope.trail[i] + "/";
+            if ($scope.trail[i] == t) {
+                break;
+            }
+        }
+        $state.go('explorer', { location: location });
+    }
+
+    $scope.create_location = function(new_location) {
+        Location.save({ name: new_location.name, parents: [$stateParams.location] }, function(res) {
+            console.log(res)
+            $scope.location.children.push(res)
+        })
+    }
+    $scope.remove_location = function(location_id) {
+            Location.remove({ id: location_id }, function(res) {
+                var i = 0;
+                for (i in $scope.location.children) {
+                    if ($scope.location.children[i].id == location_id) {
+                        break;
+                    }
+                }
+                $scope.location.children.splice(i, 1)
+            })
+        }
+        // $scope.trail = $stateParams.location.split("/")
+        // $scope.trail.pop();
+        // $scope.trail.shift();
+        // console.log($scope.trail)
+
+
+})
+
+.controller('BrownBoxCtrl', function($auth, $scope, $http, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, Location, Point, Sensor, Util) {
         Auth.loginRequired($scope);
 
         $scope.logout = function() {
@@ -129,16 +246,15 @@ angular.module('oneboard')
                 // console.log(res);
                 $scope.location.children = res;
             })
-        }
-        else {
-            Acl.has_access({ user_id: localStorage.getItem("user_id"), location: $stateParams.location || null }, function (res) {
+        } else {
+            Acl.has_access({ user_id: localStorage.getItem("user_id"), location: $stateParams.location || null }, function(res) {
                 $scope.is_admin = res.access_level == 1;
                 console.log(res);
             })
             Location.get({ id: $stateParams.location }, function(res) {
                 $scope.location = res;
 
-                    $scope.embeds = $sce.trustAsHtml($scope.location.properties.embeds);
+                $scope.embeds = $sce.trustAsHtml($scope.location.properties.embeds);
 
                 $scope.table = Array.matrix($scope.location.properties.rows, $scope.location.properties.cols, 0);
 
@@ -194,7 +310,24 @@ angular.module('oneboard')
                 });
             });
 
+
         }
+
+
+        // $scope.savePriority = function(priority){
+
+        //     $http.post("http://localhost:3000/edit", priority)
+        //     .then()
+        //     .catch()
+        // }
+
+
+        // $scope.savePriority = function() {
+        //     console.log($scope.$$ChildScope(), "Scope Child");
+
+        //     console.log($scope.priority, "priority");
+        // }
+
         $scope.navigate = function(location) {
             $state.go('explorer', { location: location });
         }
@@ -254,6 +387,14 @@ angular.module('oneboard')
                 });
         };
     }])
+
+.controller('AlertCtrl', function($scope, $http, Auth, $window, $location) {
+    $scope.isLoggedIn = Auth.isLoggedIn();
+    // $scope.logout = function() {
+    //     $window.localStorage.removeItem('satellizer_token');
+    //     $location.path('/login');
+    // }
+})
 
 //
 // Application controller.
