@@ -47,7 +47,7 @@ module.exports = {
       defaultsTo: false,
       example: true,
     },
-    target_id:{
+    targetId:{
       type: 'string',
       description:'The id of the object whose alert is generated ',
       required: true,

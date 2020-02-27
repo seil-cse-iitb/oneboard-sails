@@ -4,6 +4,7 @@
  * @description :: A model definition.  Represents a database table/collection/etc.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
+/*global Sensor*/
 
 module.exports = {
 
@@ -45,13 +46,14 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    point: { 
+    point: {
       model: 'point',
-      unique: true
+      unique: true,
+      via:'affiliated'
     },
   },
   isLocatedIn: async function(id){
-    var sensor = await Sensor.findOne({ id: id }).populate("point.isLocatedIn");
+    var sensor = await Sensor.findOne({ id: id }).populate('point.isLocatedIn');
     return sensor.point.isLocatedIn;
 
   }

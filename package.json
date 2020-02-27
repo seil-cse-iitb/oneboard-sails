@@ -16,9 +16,10 @@
     "jwt-policy": "^0.7.0",
     "mqtt": "^2.18.3",
     "ng-toast": "^2.0.0",
-    "sails": "^1.0.2",
+    "sails": "^1.2.3",
     "sails-api-jwt": "^1.2.1",
     "sails-hook-apianalytics": "^2.0.0",
+    "sails-hook-deep-orm": "^1.0.2",
     "sails-hook-mqtt": "^1.0.6",
     "sails-hook-organics": "^0.13.0",
     "sails-hook-orm": "^2.1.0",
@@ -30,7 +31,7 @@
     "@sailshq/eslint": "^4.19.3",
     "@sailshq/htmlhint": "^0.9.16",
     "@sailshq/lesshint": "^4.6.6",
-    "grunt": "1.0.1",
+    "grunt": "^1.0.4",
     "sails-hook-grunt": "^3.0.2"
   },
   "scripts": {

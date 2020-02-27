@@ -46,7 +46,7 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    
+
     isLocatedIn: {
       model: 'location'
     },
@@ -58,12 +58,12 @@ module.exports = {
       collection: 'equipment',
       via: 'children'
     },
-    containsPoints: { 
+    containsPoints: {
       collection: 'point',
       via:'isPartOf',
       description: 'Points which are physically part of this equipment'
     },
-    hasAttachedPoints :{ 
+    hasAttachedPoints :{
       collection: 'point',
       via: 'isPointOfEquipments',
       description: 'Points which are attached to this equipment (measures something, alerts something about this equipment).'

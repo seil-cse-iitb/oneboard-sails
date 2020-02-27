@@ -13,12 +13,12 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
 
-    point_type: {
+    pointType: {
       type: 'string',
-      description:'The subclass type of this point',
+      description: 'The subclass type of this point',
       required: true,
       maxLength: 200,
-      isIn :['sensor', 'alert', 'actuator'],
+      isIn: ['sensor', 'alert', 'actuator'],
       example: 'sensor'
     },
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
@@ -32,7 +32,7 @@ module.exports = {
     isPointOfLocations: {
       collection: 'location',
       via: 'hasAttachedPoints',
-      description: "Locations that this point is attached to (measures something, alerts something about this location)."
+      description: 'Locations that this point is attached to (measures something, alerts something about this location).'
     },
     isLocatedIn: {
       model: 'location',
@@ -42,18 +42,21 @@ module.exports = {
     isPointOfEquipments: {
       collection: 'equipment',
       via: 'hasAttachedPoints',
-      description: "Equipments that this point is attached to (measures something, alerts something about this equipment)."
+      description: 'Equipments that this point is attached to (measures something, alerts something about this equipment).'
     },
     isPartOf: {
       model: 'equipment',
       description: 'Equipment this point is physically part of.'
     },
 
-    sensor:{
-      collection: 'sensor',
-      via: 'point',
-      description: 'The sensor that this point represents.'
-    }
+    // sensor:{
+    //   collection: 'sensor',
+    //   via: 'point',
+    //   description: 'The sensor that this point represents.'
+    // },
+    affiliated: {
+      collection: '*',
+    },
   },
 
 };
