@@ -47,14 +47,16 @@ module.exports = {
       defaultsTo: false,
       example: true,
     },
-    targetId:{
-      type: 'string',
-      description:'The id of the object whose alert is generated ',
-      required: true,
-      maxLength: 100,
-      example: 'temp_k_seil_l1_z1',
-    }
-
+    // targetId:{
+    //   type: 'string',
+    //   description:'The id of the object whose alert is generated ',
+    //   required: true,
+    //   maxLength: 100,
+    //   example: 'temp_k_seil_l1_z1',
+    // },
+    target: {
+      collection: '*',
+    },
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
     //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
@@ -63,7 +65,10 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-
+    point: {
+      collection: 'point',
+      via:'affiliated'
+    },
   },
 
 };

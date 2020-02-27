@@ -67,7 +67,11 @@ module.exports = {
       collection: 'point',
       via: 'isPointOfEquipments',
       description: 'Points which are attached to this equipment (measures something, alerts something about this equipment).'
-    }
+    },
+    alerts: {
+      collection: 'alert',
+      via:'target'
+    },
   },
 
 };

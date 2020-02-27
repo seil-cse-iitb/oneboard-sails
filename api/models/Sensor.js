@@ -47,8 +47,7 @@ module.exports = {
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     point: {
-      model: 'point',
-      unique: true,
+      collection: 'point',
       via:'affiliated'
     },
   },

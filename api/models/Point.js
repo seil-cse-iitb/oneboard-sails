@@ -54,6 +54,10 @@ module.exports = {
     //   via: 'point',
     //   description: 'The sensor that this point represents.'
     // },
+    alerts: {
+      collection: 'alert',
+      via:'target'
+    },
     affiliated: {
       collection: '*',
     },
