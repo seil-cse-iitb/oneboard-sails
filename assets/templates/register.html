@@ -1,0 +1,37 @@
+<!-- <div ng-include="'templates/toolbar.html'"></div> -->
+
+<section layout="row" flex layout-margin layout-padding>
+
+    <md-content flex="100">
+        <md-card layout-padding flex="25" flex-offset="35" flex-xs="80" flex-offset-xs="10" flex-sm="70" flex-offset-sm="15" class="md-whiteframe-1dp">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">REGISTER</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <form name="userForm" ng-submit="register()" layout="row" layout-wrap layout-align="center start">
+                    <md-input-container class="md-block" flex="100">
+                        <label>Email address</label>
+                        <input ng-model="user.emailAddress" type="text" required>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex="100">
+                        <label>Full Name</label>
+                        <input ng-model="user.fullName" type="text" required>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex="100">
+                        <label>Password</label>
+                        <input ng-model="user.password" type="password" required>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex="100">
+                        <label>Confirm Password</label>
+                        <input ng-model="user.confirm_password" type="password" required>
+                    </md-input-container>
+                    <md-button class="md-raised md-primary" type="submit" flex="100">Register</md-button>
+                </form>
+                <p flex layout="row" layout-wrap layout-align="center start">Already have an account? &nbsp;<a ui-sref='login'> Login</a></p>
+            </md-card-content>
+
+        </md-card>
+    </md-content>
+</section>

@@ -9,7 +9,7 @@ module.exports = {
 
 
   inputs: {
-    username: {
+    emailAddress: {
       description: 'The email ID of the user to register.',
       // By declaring a string example, Sails will automatically respond with `res.badRequest`
       // if the `userId` parameter is not a string.
@@ -23,7 +23,7 @@ module.exports = {
       type: 'string',
       required: true
     },
-    name: {
+    fullName: {
       description: 'The full name of the user to register.',
       // By declaring a string example, Sails will automatically respond with `res.badRequest`
       // if the `userId` parameter is not a string.
@@ -52,9 +52,10 @@ module.exports = {
 
     //create user and insert into database
     try {
-      let user = await User.create({ emailAddress: inputs.username, password: hash, fullName: inputs.name }).fetch();
+      let user = await User.create({ emailAddress: inputs.emailAddress, password: hash, fullName: inputs.fullName }).fetch();
       return exits.success(user);
     }
+    // eslint-disable-next-line no-unused-vars
     catch (err) {
       return exits.userExists('A user with this username already exists.')
     }

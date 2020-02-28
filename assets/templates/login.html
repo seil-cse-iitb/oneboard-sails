@@ -13,16 +13,17 @@
                 <form name="userForm" ng-submit="login()" layout="row" layout-wrap layout-align="center start">
                     <md-input-container class="md-block" flex="100">
                         <label>Username</label>
-                        <input ng-model="user.username" type="text">
+                        <input ng-model="user.username" type="text" required>
                     </md-input-container>
                     <md-input-container class="md-block" flex="100">
                         <label>Password</label>
-                        <input ng-model="user.password" type="password">
+                        <input ng-model="user.password" type="password" required>
                     </md-input-container>
                     <md-button class="md-raised md-primary" type="submit" flex="100">Login</md-button>
                     <center flex="100">OR</center>
                     <md-button class="md-raised md-accent" flex="100" ng-click="authenticate('iitbsso')">LOGIN using LDAP</md-button>
                 </form>
+                <p flex layout="row" layout-wrap layout-align="center start">Don't have an account? &nbsp; <a ui-sref='register'> Register</a></p>
             </md-card-content>
 
         </md-card>
