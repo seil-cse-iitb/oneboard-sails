@@ -1,43 +1,49 @@
 /**
  * unauthorized.js
  *
- * A custom response that content-negotiates the current request to either:
- *  • log out the current user and redirect them to the login page
- *  • or send back 401 (Unauthorized) with no response body.
+ * A custom response.
  *
  * Example usage:
  * ```
  *     return res.unauthorized();
+ *     // -or-
+ *     return res.unauthorized(optionalData);
  * ```
  *
  * Or with actions2:
  * ```
  *     exits: {
- *       badCombo: {
- *         description: 'That email address and password combination is not recognized.',
+ *       somethingHappened: {
  *         responseType: 'unauthorized'
  *       }
  *     }
  * ```
+ *
+ * ```
+ *     throw 'somethingHappened';
+ *     // -or-
+ *     throw { somethingHappened: optionalData }
+ * ```
  */
-module.exports = function unauthorized() {
 
+module.exports = function unauthorized(optionalData) {
+
+  // Get access to `req` and `res`
   var req = this.req;
   var res = this.res;
 
-  sails.log.verbose('Ran custom response: res.unauthorized()');
+  // Define the status code to send in the response.
+  var statusCodeToSet = 401;
 
-  if (req.wantsJSON) {
-    return res.sendStatus(401);
+  // If no data was provided, use res.sendStatus().
+  if (optionalData === undefined) {
+    sails.log.info('Ran custom response: res.unauthorized()');
+    return res.sendStatus(statusCodeToSet);
   }
-  // Or log them out (if necessary) and then redirect to the login page.
+
+  // Set status code and send response data.
   else {
-
-    if (req.session.userId) {
-      delete req.session.userId;
-    }
-
-    return res.redirect('/login');
+    return res.status(statusCodeToSet).send(optionalData);
   }
 
 };

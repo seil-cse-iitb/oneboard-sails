@@ -22,7 +22,7 @@ module.exports.custom = {
   * > but it can also be used for user-uploaded images, webhooks, etc.      *
   *                                                                         *
   **************************************************************************/
-  baseUrl: 'http://10.129.149.33:1337',
+  baseUrl: 'http://seil.cse.iitb.ac.in:1337',
 
   /**************************************************************************
   *                                                                         *
@@ -59,11 +59,11 @@ module.exports.custom = {
   //--------------------------------------------------------------------------
 
   // The sender that all outgoing emails will appear to come from.
-  fromEmailAddress: 'noreply@example.com',
+  fromEmailAddress: 'seil@cse.iitb.ac.in',
   fromName: 'The SEIL Oneboard Team',
 
   // Email address for receiving support messages & other correspondences.
-  internalEmailAddress: 'support+development@example.com',
+  internalEmailAddress: 'seil@cse.iitb.ac.in',
 
   // Whether to require proof of email address ownership any time a new user
   // signs up, or when an existing user attempts to change their email address.
@@ -88,16 +88,6 @@ module.exports.custom = {
   * Any other custom config this Sails app should use during development.    *
   *                                                                          *
   ***************************************************************************/
-  // Config options for auth using IITBSSO
-  iitbsso: {
-    name: 'iitbsso',
-    clientId: 'aNU4hoiX5bdH0XMisOhZVa92CSKfEHio0lqGDBs3',
-    clientSecret: 'FyH1kK6JwOETeC01uMX9gmxb88yYJpLGqYfVHMzMicnkqdgJdnSvhpQcnQLSaAvxGp5UmQIqBJPW5ytXtIkDBbNG8woILrKvKqK1YK264PtX88adWJ574aWhK7WHhLvH',
-    // redirectURI: this.baseUrl,
-    authorizationURI: 'https://gymkhana.iitb.ac.in/sso/oauth/authorize',
-    tokenURI: 'https://gymkhana.iitb.ac.in/sso/oauth/token/',
-    userURI: 'https://gymkhana.iitb.ac.in/sso/user/api/user/?fields=email,roll_number,username',
-    scope: ['ldap']
-  }
+
 
 };
