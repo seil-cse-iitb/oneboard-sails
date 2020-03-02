@@ -59,7 +59,14 @@ module.exports = {
     }
 
     return minPerm < Number.MAX_SAFE_INTEGER ? minPerm : null;
-  }
+  },
 
+  accessMap : function(){
+    return {
+      'admin':2,
+      'control':1,
+      'monitor':0
+    }
+  }
 };
 

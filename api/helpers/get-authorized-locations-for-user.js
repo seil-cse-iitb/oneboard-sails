@@ -7,13 +7,13 @@ module.exports = {
 
   inputs: {
 
-    user_id: {
+    userId: {
       type: 'string',
       example: 'admin',
       description: 'The user id whose access we have to check.',
       required: true
     },
-    access_level: {
+    accessLevel: {
       type: 'string',
       example: 'operate',
       description: 'The access level the user has requested.',
@@ -37,7 +37,7 @@ module.exports = {
     };
     let acls, networked_locations, address, netmask, buf, offset;
     var locations=[];
-    acls = await Acl.find({ user_id: inputs.user_id.toUpperCase(), access_level: { '<': action_map[inputs.access_level] }}).populate("location");
+    acls = await Acl.find({ userId: inputs.userId.toUpperCase(), accessLevel: { '<': action_map[inputs.accessLevel] }}).populate("location");
     for(var i in acls){
       locations.push(acls[i].location);
     }

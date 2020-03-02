@@ -6,102 +6,16 @@ angular.module('oneboard')
 .controller('HomeCtrl', function() {
 // pass
 })
-.controller('ToolbarCtrl', function($scope, $http, Auth, $window, $location) {
+.controller('ToolbarCtrl', function($scope, Auth, $window, $state) {
   $scope.isLoggedIn = Auth.isLoggedIn();
   $scope.logout = function() {
     $window.localStorage.removeItem('satellizer_token');
     $window.localStorage.removeItem('user');
-    $location.path('/login');
+    $state.go('login');
   };
 })
 
-.controller('MasterCtrl', function($auth, $scope, $http, Auth, $window, $location, $stateParams, Alert, $mdToast, toastr) {
-  // Auth.loginRequired();
-  console.log(toastr);
-
-  // $scope.logout = function() {
-  //     $window.localStorage.removeItem('satellizer_token');
-  //     $window.localStorage.removeItem('user');
-  //     $location.path('/login');
-  // }
-  $scope.hell_raised = false;
-  io.socket.get('/alert?resolved=false&sort=createdAt DESC&limit=10', function(resData) {
-    console.log(resData);
-    $scope.alerts = resData;
-    for (var i in $scope.alerts) {
-      // $scope.showActionToast($scope.alerts[i].title);
-    }
-    $scope.$apply();
-    io.socket.on('alert', function(alert) {
-      // console.log(alert)
-      switch (alert.verb) {
-        case "created":
-          $scope.alerts.unshift(alert.data);
-          var toast = $scope.getToast($scope.alerts[i]);
-          // toastr.refreshTimer(toast, 100000);
-          console.log(alert, "Toast");
-          if (alert.data.level === "danger") {
-            $scope.raise_hell();
-          }
-      }
-
-      $scope.$apply();
-    });
-  });
-
-  $scope.getToast = function(event) {
-
-    switch (event.level) {
-      case 'danger':
-        var toast = toastr.error(event.description, event.title, {
-          closeButton: true,
-          closeHtml: '<button>X</button>',
-        });
-        return toast;
-      case 'warn':
-        var toast = toastr.warn(event.description, event.title, {
-          closeButton: true,
-          closeHtml: '<button>X</button>',
-        });
-        return toast;
-      case 'info':
-        var toast = toastr.info(event.description, event.title, {
-          closeButton: true,
-          closeHtml: '<button>X</button>',
-        });
-        return toast;
-      case 'success':
-        var toast = toastr.success(event.description, event.title, {
-          closeButton: true,
-          closeHtml: '<button>X</button>',
-        });
-        return toast;
-    }
-  };
-  $scope.generateColorFromLevel = function(level) {
-    switch (level) {
-      case 'danger':
-        return 'red';
-        break;
-      case 'warn':
-        return 'warn';
-        break;
-      case 'info':
-        return '';
-        break;
-      case 'success':
-        return 'primary';
-        break;
-    }
-  };
-  $scope.raise_hell = function() {
-    console.log("RAISE HELL!!");
-    $scope.hell_raised = true;
-    $scope.$apply();
-  };
-
-
-
+.controller('MasterCtrl', function($scope, $mdToast) {
   // ALERT
   $scope.showActionToast = function(message) {
     var pinTo = "top right";
@@ -128,13 +42,9 @@ angular.module('oneboard')
 
 })
 
-.controller('ExplorerCtrl', function($auth, $scope, $http, $location, $window, $stateParams, $state, $sce, Acl, Auth, Equipment, Location, Point, Sensor, Util) {
+.controller('ExplorerCtrl', function($scope, $stateParams, $state, $sce, Acl, Auth, Equipment, Location, Util) {
   Auth.loginRequired($scope);
-  $scope.is_admin = Auth.user.is_admin();
-  // $scope.logout = function() {
-  //     $window.localStorage.removeItem('satellizer_token');
-  //     $location.path('/');
-  // }
+
   $scope.location = {};
   if (!$stateParams.location) {
     Location.query(function(res) {
@@ -143,7 +53,7 @@ angular.module('oneboard')
     });
   }
   else {
-    Acl.has_access({ user_id: Auth.user.username(), location: $stateParams.location || null }, function (res) {
+    Acl.has_access({ userId: Auth.user.username(), location: $stateParams.location || null }, function (res) {
       $scope.is_admin = $scope.is_admin || res.access_level == 1;
       console.log(res);
     });
@@ -160,51 +70,11 @@ angular.module('oneboard')
           var equipment = $scope.equipments[i];
           $scope.table[equipment.properties.row - 1][equipment.properties.col - 1] = { "equipment": $scope.equipments[i] };
         };
-        // test
 
-        /*
-                    Sensor.query({ location: $stateParams.location }, function (res) {
-                        $scope.sensors = res;
-                        for (var i = 0; i < $scope.sensors.length; i++) {
-                            var sensor = $scope.sensors[i];
-                            if ($scope.table[sensor.properties.row - 1][sensor.properties.col - 1])
-                                $scope.table[sensor.properties.row - 1][sensor.properties.col - 1].sensor = $scope.sensors[i];
-                            else
-                                $scope.table[sensor.properties.row - 1][sensor.properties.col - 1] = { "sensor": $scope.sensors[i] }
-
-                        };
-                        // console.log($scope.table)
-                    })*/
       });
 
     });
 
-
-    io.socket.get('/sensor/subscribe?location=' + $stateParams.location, function(data, jwr) {
-
-      io.socket.on('sensor_data', function(reading) {
-        // console.log(reading)
-        var sensor = Util.getBySerial($scope.sensors, reading.serial);
-        if (sensor != null) {
-          sensor.value = reading.temperature;
-          var hue = 250 - (reading.temperature - 16) * (250 / 16);
-          sensor.properties.style['background-color'] = "hsl(" + hue + ",100%,50%)";
-          $scope.$apply();
-        }
-      });
-
-    });
-
-    io.socket.get('/equipment/subscribe?location=' + $stateParams.location, function(data, jwr) {
-      io.socket.on('equipment_actuation', function(reading) {
-        // console.log(reading)
-        var equipment = Util.getBySerial($scope.equipments, reading.serial);
-        if (equipment != null) {
-          equipment.properties.state = reading.state;
-          $scope.$apply();
-        }
-      });
-    });
 
   }
   $scope.navigate = function(location) {
@@ -220,41 +90,6 @@ angular.module('oneboard')
     }
     $state.go('explorer', { location: location });
   };
-
-  $scope.create_location = function(new_location) {
-    if($stateParams.location){
-      Location.save({ name: new_location.name, parents: [$stateParams.location] }, function(res) {
-        console.log(res);
-        $scope.location.children.push(res);
-      });
-    }
-    else{
-      Location.save({ name: new_location.name }, function(res) {
-        console.log(res);
-        $scope.location.children.push(res);
-        Acl.save({user_id:Auth.user.username(), location:res.id, access_level:1}, function(res){
-          console.log("Granted admin access to location");
-        });
-      });
-    }
-            
-  };
-  $scope.remove_location = function(location_id) {
-    Location.remove({ id: location_id }, function(res) {
-      var i = 0;
-      for (i in $scope.location.children) {
-        if ($scope.location.children[i].id == location_id) {
-          break;
-        }
-      }
-      $scope.location.children.splice(i, 1);
-    });
-  };
-  // $scope.trail = $stateParams.location.split("/")
-  // $scope.trail.pop();
-  // $scope.trail.shift();
-  // console.log($scope.trail)
-
 
 })
 .controller('LoginCtrl', ['$scope', '$window', '$http', '$location', '$auth', 'Auth', function($scope, $window, $http, $location, $auth, Auth) {

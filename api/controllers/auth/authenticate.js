@@ -3,9 +3,9 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 module.exports = {
     friendlyName: 'Authenticate user',
-    description: 'Authenticate a user using her username and password and return a JWT if authentication succeeds',
+    description: 'Authenticate a user using her emailAddress and password and return a JWT if authentication succeeds',
     inputs: {
-        username: {
+        emailAddress: {
             description: 'The email ID of the user to look up.',
             // By declaring a string example, Sails will automatically respond with `res.badRequest`
             // if the `userId` parameter is not a string.
@@ -26,21 +26,20 @@ module.exports = {
             responseType: 'ok',
         },
         invalidCredentials: {
-            description: 'Invalid username or password.',
+            description: 'Invalid emailAddress or password.',
             responseType: 'unauthorized'
         }
     },
 
     fn: async function (inputs, exits) {
-        var user = await User.find({ emailAddress: inputs.username });
+        var user = await User.find({ emailAddress: inputs.emailAddress });
         user=user[0];
         if(!user){
-            return exits.invalidCredentials('Invalid username or password.');
+            return exits.invalidCredentials('Invalid emailAddress or password.');
         }
         if (bcrypt.compareSync(inputs.password, user.password)) {
-            var token = jwt.sign({
-                data: { username: user.emailAddress, isSuperAdmin: user.isSuperAdmin, name: user.fullName }
-            }, sails.config.session.secret, { expiresIn: '365d' });
+            var token = jwt.sign({ emailAddress: user.emailAddress, isSuperAdmin: user.isSuperAdmin, name: user.fullName }
+            , sails.config.session.secret, { expiresIn: '365d' });
 
             // return the information including token as JSON
             return exits.success({
@@ -49,7 +48,7 @@ module.exports = {
             });
         }
         else {
-            return exits.invalidCredentials('Invalid username or password.');
+            return exits.invalidCredentials('Invalid emailAddress or password.');
         }
     }
 };

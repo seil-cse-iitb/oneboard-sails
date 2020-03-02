@@ -10,15 +10,27 @@
 
 module.exports.policies = {
 
-  // '*': 'is-logged-in',
-  // '*': ['jwt-auth'],
-
-  // "equipment/subscribe/*": [ 'acl'],
-  // "equipmentGroup/subscribe/*" :['acl'],
-  "alert": ["acl"],
-  "location/*":['jwt-auth', 'acl'],
-  "equipment/*": ['jwt-auth', 'acl'],
-  "acl/*": ['jwt-auth', "prevent-trespassing"],
+  LocationController:{
+    'find':['jwt-auth'],
+    'findOne': ['jwt-auth','can-monitor-location'],
+    'create':['jwt-auth','is-super-admin'],
+    'update':['jwt-auth','is-super-admin'],
+    'destroy':['jwt-auth','is-super-admin'],
+  },
+  AclController:{
+    '*':['jwt-auth', "prevent-trespassing"],
+  },
+  EquipmentController:{
+    'find':['jwt-auth', 'can-filter-by-location'],
+    'findOne': ['jwt-auth','can-monitor-equipment'],
+    'create':['jwt-auth','is-super-admin'],
+    'update':['jwt-auth','is-super-admin'],
+    'destroy':['jwt-auth','is-super-admin'],
+    'actuate':['jwt-auth','can-control-equipment'],
+    'subscribe':['jwt-auth','can-monitor-equipment'],
+  },
+  "alert": false,
+  
   // Bypass the `is-logged-in` policy for:
   'auth/verify': 'jwt-auth',
   'auth/*':true,

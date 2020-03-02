@@ -57,7 +57,7 @@ module.exports = {
     }
     // eslint-disable-next-line no-unused-vars
     catch (err) {
-      return exits.userExists('A user with this username already exists.')
+      return exits.userExists('A user with this username already exists.');
     }
   }
 };
