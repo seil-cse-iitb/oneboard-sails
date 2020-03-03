@@ -17,6 +17,13 @@ module.exports.policies = {
     'update':['jwt-auth','is-super-admin'],
     'destroy':['jwt-auth','is-super-admin'],
   },
+  SymLocation:{
+    'find':['jwt-auth', 'can-filter-by-location'],
+    'create':['jwt-auth','is-super-admin'],
+    'update':['jwt-auth','is-super-admin'],
+    'destroy':['jwt-auth','is-super-admin'],
+    '*':false,
+  },
   AclController:{
     '*':['jwt-auth', "prevent-trespassing"],
   },

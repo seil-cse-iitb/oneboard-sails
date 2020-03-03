@@ -39,7 +39,7 @@ module.exports = {
         }
         if (bcrypt.compareSync(inputs.password, user.password)) {
             var token = jwt.sign({ emailAddress: user.emailAddress, isSuperAdmin: user.isSuperAdmin, name: user.fullName }
-            , sails.config.session.secret, { expiresIn: '365d' });
+            , sails.config.session.secret, { expiresIn: '7d' });
 
             // return the information including token as JSON
             return exits.success({

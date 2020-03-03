@@ -53,12 +53,18 @@ module.exports.routes = {
   'POST  /auth/register':                                 'auth.register',
   'POST  /auth/iitbsso/callback':                         'auth.iitbsso-callback',
   'GET  /auth/verify':                                    'auth.verify',
-  'POST  /equipment/actuate/:id':                         'EquipmentController.actuate',
-  '/sensor/subscribe':                                    'SensorController.subscribe',
-  '/equipment/subscribe':                                 'EquipmentController.subscribe',
-  'GET  /sensor/test':                                    'SensorController.test',
-  'GET  /alert/generate':                                 'AlertController.generate',
+
   'GET  /location/:id/descendants':                       'LocationController.descendants',
+  'GET  /location/:id/ancestors':                         'LocationController.ancestors',
+  'GET  /location/:id/path':                              'LocationController.path',
+
+  '/equipment/subscribe':                                 'EquipmentController.subscribe',
+  'POST  /equipment/actuate/:id':                         'EquipmentController.actuate',
+
+  '/sensor/subscribe':                                    'SensorController.subscribe',
+  'GET  /sensor/test':                                    'SensorController.test',
+  
+  'GET  /alert/generate':                                 'AlertController.generate',
   'GET  /acl/has_access/:location':                       'AclController.has_access',
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
@@ -69,7 +75,7 @@ module.exports.routes = {
   //  ╔╦╗╦╔═╗╔═╗  ╦═╗╔═╗╔╦╗╦╦═╗╔═╗╔═╗╔╦╗╔═╗
   //  ║║║║╚═╗║    ╠╦╝║╣  ║║║╠╦╝║╣ ║   ║ ╚═╗
   //  ╩ ╩╩╚═╝╚═╝  ╩╚═╚═╝═╩╝╩╩╚═╚═╝╚═╝ ╩ ╚═╝
-  '/terms':                   '/legal/terms',
-  '/logout':                  '/api/v1/account/logout',
+  // '/terms':                   '/legal/terms',
+  // '/logout':                  '/api/v1/account/logout',
 
 };

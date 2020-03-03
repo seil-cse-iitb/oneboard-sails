@@ -30,7 +30,7 @@ module.exports = async function (req, res) {
       // console.log(user);
       // if user is found and password is right
       // create a token
-      const token = jwt.sign(user, sails.config.session.secret, { expiresIn: body.expires_in + 's' });
+      const token = jwt.sign(user, sails.config.session.secret, { expiresIn: '7d' });
 
       // return the information including token as JSON
       res.send({

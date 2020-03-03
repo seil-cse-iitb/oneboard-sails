@@ -14,8 +14,7 @@ module.exports = async function (req, res, proceed) {
   let userId = await sails.helpers.getUserIdFromRequest(req);
   let locationId = req.query.isLocatedIn;
   // If the user is super admin, then always allow
-  let user = await User.findOne({emailAddress:userId});
-  if(user && user.isSuperAdmin){
+  if(req.user.isSuperAdmin){
     return proceed();
   }
   try{

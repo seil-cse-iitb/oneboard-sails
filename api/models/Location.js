@@ -40,11 +40,18 @@ module.exports = {
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
     children: {
       collection: 'location',
-      via: 'parents'
+      via: 'isLocatedIn'
     },
-    parents: {
-      collection: 'location',
-      via: 'children'
+    isLocatedIn: {
+      model: 'location'
+    },
+    symchildren: {
+      collection: 'symlocation',
+      via: 'isLocatedIn'
+    },
+    symlocations:{
+      collection: 'symlocation',
+      via:'target'
     },
     acls: {
       collection: 'acl',
@@ -66,7 +73,13 @@ module.exports = {
     }
   },
   ancestors: async function (id) {
-    var location = await Location.findOne({ id: id }).populate('parents');
+    if(!id){
+      return;
+    }
+    var location = await Location.findOne({ id: id }); //Fetch the details about this location
+    var symlocations = await SymLocation.find({target:id}); // Fetch details about links to this location
+    var parents = _.map(symlocations,'isLocatedIn'); //Create a parents array composed of parents of all symlocations 
+    parents = _.union(parents, [location.isLocatedIn]); // and this location
     var ancestors = [location];
 
     if (!location) {
@@ -75,15 +88,18 @@ module.exports = {
         code: 'E_UNKNOWN_LOCATION'
       });
     }
-    for (var i in location.parents) {
-
-      ancestors = ancestors.concat(await Location.ancestors(location.parents[i].id));
+    for (var i in parents) {
+      ancestors = _.union(ancestors, await Location.ancestors(parents[i]));
     }
+    ancestors = _.uniq(ancestors, 'id');
     return ancestors;
   },
 
   descendants: async function (id) {
-    var location = await Location.findOne({ id: id }).populate('children');
+    var location = await Location.findOne({ id: id }).populate('children'); //Fetch the details about this location
+    var symlocations = await SymLocation.find({isLocatedIn:id}).populate('target'); // Fetch details about symlocations under this location
+    var children = _.map(symlocations, 'target'); //Create a children array composed of all symlocations 
+    children = _.union(children, location.children); // and this location's children
     var descendants = [location];
 
     if (!location) {
@@ -92,12 +108,24 @@ module.exports = {
         code: 'E_UNKNOWN_LOCATION'
       });
     }
-    for (var i in location.children) {
-
-      descendants = descendants.concat(await Location.descendants(location.children[i].id));
+    for (var i in children) {
+      if(!children[i]){
+        continue;
+      }
+      descendants = _.union(descendants, await Location.descendants(children[i].id));
     }
+    descendants = _.uniq(descendants, 'id');
     return descendants;
   },
+
+  path: async function (id){
+    let location = await Location.findOne({ id: id }); //Fetch the details about this location
+    let path = [location];
+    if(location.isLocatedIn){
+      path = _.union(path, await Location.path(location.isLocatedIn));
+    }
+    return path;
+  }
 
 };
 
