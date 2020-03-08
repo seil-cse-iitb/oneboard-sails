@@ -33,10 +33,7 @@ module.exports = async function (req, res) {
       const token = jwt.sign(user, sails.config.session.secret, { expiresIn: '7d' });
 
       // return the information including token as JSON
-      res.send({
-        message: 'Enjoy your token!',
-        token: token
-      });
+      res.send(token);
     });
   });
 };

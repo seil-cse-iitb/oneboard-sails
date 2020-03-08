@@ -42,10 +42,7 @@ module.exports = {
             , sails.config.session.secret, { expiresIn: '7d' });
 
             // return the information including token as JSON
-            return exits.success({
-                message: 'Enjoy your token!',
-                token: token
-            });
+            return exits.success(token);
         }
         else {
             return exits.invalidCredentials('Invalid emailAddress or password.');
