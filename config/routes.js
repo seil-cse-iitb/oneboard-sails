@@ -54,6 +54,7 @@ module.exports.routes = {
   'POST  /auth/iitbsso/callback':                         'auth.iitbsso-callback',
   'GET  /auth/verify':                                    'auth.verify',
 
+  'GET  /location/:id/children':                          'LocationController.children',
   'GET  /location/:id/descendants':                       'LocationController.descendants',
   'GET  /location/:id/ancestors':                         'LocationController.ancestors',
   'GET  /location/:id/path':                              'LocationController.path',

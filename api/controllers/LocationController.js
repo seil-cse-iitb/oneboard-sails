@@ -17,6 +17,11 @@ module.exports = {
     return res.json(locations);
   },
 
+  children : async function (req, res){
+    let children = await Location.find({isLocatedIn:req.params.id});
+    return res.json(children);
+  },
+
   descendants : async function (req, res){
     let descendants = await Location.descendants(req.params.id);
     return res.json(descendants);
