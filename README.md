@@ -3,7 +3,12 @@
 a [Sails v1](https://sailsjs.com) application for controlling and visualizing IoT modules.
 
 # Getting Started
-* Copy config/local.example.js to config/local.js and set the location_root, allowOrigins, baseUrl, datastores.default.url and mqtt.broker properly.
+```
+npm install
+cp config/local.example.js config/local.js
+```
+* Set the configuration params in config/local.js 
+* Run `sails lift`
 
 # Docker image building
 * Run `docker build -t zgod/oneboard .` inside the project root directory.

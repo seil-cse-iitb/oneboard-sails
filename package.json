@@ -25,8 +25,7 @@
     "sails-hook-organics": "^0.13.0",
     "sails-hook-orm": "^2.1.0",
     "sails-hook-sockets": "^1.4.0",
-    "sails-mysql": "^1.0.0",
-    "sails-seed": "^0.5.0"
+    "sails-mysql": "^1.0.0"
   },
   "devDependencies": {
     "@sailshq/eslint": "^4.19.3",
@@ -50,6 +49,6 @@
   "author": "shinjan",
   "license": "",
   "engines": {
-    "node": "==8.9.4"
+    "node": "==8.9"
   }
 }
