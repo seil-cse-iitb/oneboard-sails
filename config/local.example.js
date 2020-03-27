@@ -16,7 +16,7 @@ module.exports = {
   security: {
     cors: {
       allRoutes: true,
-      allowOrigins: ['http://localhost:1337'],
+      allowOrigins: ['http://localhost:4200'],
       allowCredentials: false,
       allowRequestHeaders: ['*'],
       allowResponseHeaders: ['*']
@@ -30,5 +30,6 @@ module.exports = {
   },
   mqtt: {
     broker: 'mqtt://mqtt.seil.cse.iitb.ac.in',
-  }
+  },
+  saltRounds:10,
 };

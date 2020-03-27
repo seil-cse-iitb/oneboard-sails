@@ -8,11 +8,11 @@
 module.exports = {
   find : async function (req, res){
     if(req.user.isSuperAdmin){
-      let locations = await Location.find({isLocatedIn:null});
+      let locations = await Location.find({isLocatedIn:null}).populate('children');
       return res.json(locations);
     }
     let userId = await sails.helpers.getUserIdFromRequest(req);
-    let acl = await Acl.find({ userId: userId}).populate('location');
+    let acl = await Acl.find({ userId: userId}).populate('location.children.*');
     let locations = _.map(acl,'location');
     return res.json(locations);
   },
